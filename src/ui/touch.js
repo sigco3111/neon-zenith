@@ -8,10 +8,10 @@ export function createTouch(root, input) {
     <div id="touch" class="hidden">
       <div class="stick"><i></i></div>
       <div class="tbtns">
-        <div class="tbtn" data-k="up">UP</div><div class="tbtn" data-k="boost">BOOST</div>
-        <div class="tbtn" data-k="down">DOWN</div><div class="tbtn" data-k="cam">CAM</div>
+        <div class="tbtn" data-k="up">상승</div><div class="tbtn" data-k="boost">부스트</div>
+        <div class="tbtn" data-k="down">하강</div><div class="tbtn" data-k="cam">시점</div>
       </div>
-      <div class="tmenu"><div class="tbtn" data-k="map">MAP</div><div class="tbtn" data-k="menu">☰</div></div>
+      <div class="tmenu"><div class="tbtn" data-k="map">지도</div><div class="tbtn" data-k="menu">☰</div></div>
     </div>`);
   const el = root.querySelector('#touch');
   const stick = el.querySelector('.stick'), knob = stick.querySelector('i');

@@ -87,7 +87,9 @@ async function loadTextures() {
 }
 
 async function boot() {
-  await document.fonts.load('600 16px "Noto Sans KR Variable"', '네온 제니스 고도 지도');
+  // Canvas text does not trigger font loading. Load every Korean glyph used by the UI and ads first.
+  const koreanGlyphs = '가각간감강같개거것게경계고곡곳공과곽관광교구국군귀그근글금급기까깨꺼끄끼나날남납낮내냅너넘넣네노녹높누뉴느는늘능니닉다단닫달당대더던데델도동두뒤드든들듭등디딤딧딩따또뚫뛰라래량러럴렇레려력로록롬롭료루룽류륙르른를름리릭림립링마만많말맞멋메며면명모목무문미믿바발밝밤방백버번범법베보복볼부북불붐붕브비빅빌빕빗빛사삼상새생샤서선설섬성세섹센셰소속수스슬습승시신심씨아악안애야약어업없었에역연영옛오온올완외왼요우운울원웡웨위유으은을음의이인일임입있자작장재저적전점정제젠져조종좋좌죠주준줄중즈지직진질짐집쪽차착창처청체최축출취측층치카컨컴케켜코콘콜콰크클키킵타탈택터테텍템토통퉁트티틱파판패편포폭폰풍프플픽하한할합항해했행향허현혔호화확환활횡효후휠휴흔';
+  await Promise.all([400, 500, 600, 700, 800, 900].map(weight => document.fonts.load(`${weight} 16px "Noto Sans KR Variable"`, koreanGlyphs)));
   const canvas = document.getElementById('gl');
   const webgpu = !!navigator.gpu && !params.has('webgl');
   const renderer = new THREE.WebGPURenderer({ canvas, antialias: false, powerPreference: 'high-performance', reversedDepthBuffer: webgpu, forceWebGL: !webgpu });

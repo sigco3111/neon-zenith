@@ -1,199 +1,141 @@
 <div align="center">
 
-<a href="https://zenith.billpwchan.art/"><img src="docs/media/hero.jpg" alt="Neon Zenith title screen: Temple Street at night in the rain, neon signs reflected in the wet road" width="100%"></a>
+<img src="docs/media/hero.jpg" alt="비 내리는 템플 스트리트와 네온 제니스 원작 화면" width="100%">
 
-# 霓虹天頂 · Neon Zenith
+# 네온 제니스 · Neon Zenith 한국어판
 
-**A rain-soaked vertical city you can fly through, in your browser.**
+**비 내리는 수직 도시를 달리고 날아다니는 브라우저 3D 게임.**
 
-Drive the Temple Street night market, lift off into the sky lanes, punch through the storm deck<br>and land on a spire 1,418 metres up. Real-time, open source, built on three.js WebGPU.
+템플 스트리트 야시장에서 출발해 하늘 항로를 따라 비행하고,
+구름층을 뚫고 높이 1,418m의 제니스 착륙장에 도착하세요.
 
-**[▶ Play it now](https://zenith.billpwchan.art/)** &nbsp;·&nbsp; [How it works](#how-it-works) &nbsp;·&nbsp; [Run it locally](#run-it-locally) &nbsp;·&nbsp; [Credits](CREDITS.md)
-
-[![three.js r186](https://img.shields.io/badge/three.js-r186-000?logo=three.js&logoColor=white)](https://threejs.org)
-[![WebGPU + WebGL2](https://img.shields.io/badge/WebGPU-WebGL2_fallback-ff3df2)](#browser-support)
-[![TSL](https://img.shields.io/badge/shaders-100%25_TSL-3be8ff)](https://github.com/mrdoob/three.js/wiki/Three.js-Shading-Language)
-[![License: MIT](https://img.shields.io/badge/code-MIT-ffb547)](LICENSE)
-[![build](https://github.com/billpwchan/neon-zenith/actions/workflows/build.yml/badge.svg)](https://github.com/billpwchan/neon-zenith/actions/workflows/build.yml)
+[원작 저장소](https://github.com/billpwchan/neon-zenith) · [원본 영어 설명](README.en.md) · [에셋 출처](CREDITS.md) · [MIT 라이선스](LICENSE)
 
 </div>
 
-<br>
+## 한국어판 안내
 
-<p align="center">
-  <img src="docs/media/sky-lane.webp" alt="Flying the SKY LANE time trial at 168 metres over the city, through magenta gates" width="100%">
-  <br><sub>The <b>SKY LANE</b> time trial, recorded in real time at 60 fps (autopilot at the stick).</sub>
-</p>
+Bill Chan의 **Neon Zenith**를 한국어로 옮긴 공개 포크입니다. 게임의 구조와 물리, 도시 생성 시드, 모델과 조명을 유지합니다.
 
-## The city
+- 시작 화면, 설정, 조작법, 타임어택, 결과와 기록 공유 화면을 한국어로 번역했습니다.
+- HUD, 나침반, 고도계, 도시 지도와 지역명, 라디오 대사, 수집 알림, 터치 버튼도 한국어로 표시합니다.
+- 런타임 canvas로 만드는 가상 광고 16종의 문구를 번역했습니다.
+- **Noto Sans KR**을 패키지에 포함합니다. canvas로 그리는 지도와 HUD에서도 한글 글꼴을 사용합니다.
+- 코드 식별자, 저장 키, 모델 이름과 원저작자 표기는 유지합니다.
+- **텍스처에 이미 구워진 간판 글자는 번역하지 않았습니다.** `signs.webp` 및 Blender/베이크 결과물은 원본 그대로입니다.
+- `CREDITS.md`, `LICENSE`, 게임 내 모델 크레딧과 출처 링크를 유지합니다. 새 한글 폰트의 OFL 고지는 `third-party-notices/Noto-Sans-KR-OFL.txt`에 있습니다.
 
-Neon Zenith is a single, continuous city of **9,373 buildings** on a 3.2 km grid, ringed by a harbour and a far shore. Every building, sign, awning, lamp post and rooftop water tank is solid. You can land on any roof, slide under the signs that hang over the street, or thread the canyon between two towers at full boost. Nothing is a skybox.
+## 무엇을 할 수 있나요?
 
-- **Temple Street, built by hand.** The street you start on is built in Blender lot by lot: modelled tenements in Poly Haven materials, shopfront modules, aircon units, cables, vending machines and bin bags. Its light is baked in Cycles from its own neon, shop windows and street lamps.
-- **Buildings with a grammar.** Office towers come in setback, cantilevered-stack, twin-with-sky-bridge, finned-slab and core-and-wings forms. Each gets one of four crowns: an open frame with LED ring beams, a lit drum, a stepped top, or plant rooms under a cornice. Housing estates are cruciform, H-plan or slab. A dozen blocks fuse into arcologies. A street of towers is a street of different buildings.
-- **Advertising that belongs to the city.** About 390 giant LED screens sit on podiums, run up tower shafts and stand on rooftop steel frames. They show sixteen fictional campaigns (cyberware clinics, energy drinks, a bank, a noodle bar) drawn to a canvas at load, so there are no image files and no real brands. They wipe between campaigns, glitch, and show their LED pitch when you fly close.
-- **Weather with weight.** Rain falls as streaks tinted by the neon beneath them and stops under awnings. Lightning lights the underside of the cloud deck, which has a sea of moonlit cloud above it.
-- **A flight model with two regimes.** On the street the KITE hovers a hand's width off the tarmac and drifts like a car. In the air it holds altitude like a VTOL. Taxis, minibuses and KMB buses keep left and stop at signals below you, and sky traffic streams along lanes at 72, 118, 168, 236 and 330 m.
-- **Things to do.** Four time trials with medals (MARKET DASH, SKY LANE, ASCENT, THE DIVE), 31 hidden data shards, a city map with waypoints, and a radio.
-- **Plays anywhere.** Keyboard, gamepad and touch. Phones get their own HUD and lighter textures. The audio is synthesised at runtime: rain, turbines, thunder and a score that thickens with speed and height. There are no audio files.
+3.2km 격자의 도시에 9,373개 건물이 있고, 항구와 맞은편 해안까지 이어집니다. 건물과 간판, 차양, 가로등, 물탱크에 충돌 판정이 있어 지붕에 착륙하거나 골목을 누빌 수 있습니다.
 
-## Gallery
+- **자유 비행:** 지상에서는 호버카처럼 주행하고 공중에서는 VTOL처럼 고도를 유지합니다.
+- **타임어택 4종:** 야시장 질주, 하늘 항로, 정상으로, 급강하. 게이트를 순서대로 통과하고 금·은·동메달 기록에 도전하세요.
+- **데이터 샤드 31개:** 골목부터 구름과 첨탑까지 찾아보세요.
+- **도시 지도:** 클릭하면 목적지를 지정합니다. 드래그로 이동하고 휠로 확대/축소합니다.
+- **라디오와 날씨:** 비, 천둥, 엔진음과 음악은 실행 중 합성됩니다.
 
-<table>
-  <tr>
-    <td width="50%"><img src="docs/media/market.jpg" alt="Temple Street at street level, neon signs and rain"><br><sub><b>Temple Street.</b> The baked hero district, lit by its own signs.</sub></td>
-    <td width="50%"><img src="docs/media/tenements.jpg" alt="Tenement blocks with vertical neon signs"><br><sub><b>Tenement canyons.</b> Modelled facade kits up close, captured facades beyond.</sub></td>
-  </tr>
-  <tr>
-    <td><img src="docs/media/canyon.jpg" alt="The 168 metre sky lane between glass towers"><br><sub><b>The 168 m lane.</b> Curtain walls lit tenant by tenant.</sub></td>
-    <td><img src="docs/media/rooftop.jpg" alt="A rooftop billboard over Kowloon rooftops"><br><sub><b>Rooftops.</b> Billboards on steel frames, plant rooms, water tanks.</sub></td>
-  </tr>
-  <tr>
-    <td><img src="docs/media/skyline.jpg" alt="The skyline from 90 metres with aviation lights"><br><sub><b>Skyline.</b> Setbacks, crowns and masts with flashing obstruction lights.</sub></td>
-    <td><img src="docs/media/clouds.jpg" alt="The Zenith spire rising through the cloud deck under the moon"><br><sub><b>Above the weather.</b> The Zenith breaks the cloud deck at 660 m.</sub></td>
-  </tr>
-</table>
+템플 스트리트는 Blender에서 건물과 상점을 배치하고 Cycles로 조명을 구운 구역입니다. 나머지 도시는 시드 기반 생성기와 인스턴싱으로 구성됩니다. 가상 광고 약 390개, 좌측 통행하는 택시·버스·승용차, 여러 고도의 하늘 교통도 있습니다.
 
-## Controls
+## 조작법
 
-| | Keyboard | Gamepad | Touch |
-|---|---|---|---|
-| Thrust / brake | `W` / `S` | `RT` / `LT` | stick |
-| Steer | `A` / `D` | left stick | stick |
-| Climb / descend | `Space` / `C` | right stick | `UP` / `DOWN` |
-| Boost (drift when turning at speed) | `Shift` | `RB` | `BOOST` |
-| Camera | `V` | | `CAM` |
-| Map · reset to street · horn · radio | `M` · `R` · `F` · `B` | | `MAP` |
-| Menu | `Esc` | | `☰` |
-
-<p align="center"><img src="docs/media/phone.jpg" alt="Neon Zenith on a phone, portrait, with touch controls" width="260"></p>
-
-## How it works
-
-Everything renders through three.js's `WebGPURenderer`, and every material is written in **TSL** (three.js's node shading language). TSL compiles to WGSL on WebGPU and to GLSL on the WebGL2 fallback, so there is one source for both. The repository has no `.glsl` file.
-
-### A seeded city that never changes
-
-`src/city/layout.js` lays out streets, districts (market, mixed, centre, estates, docks, the outer ring), blocks, lots, alleys, shops and signs from one seed. It does this in a single pass, and the hand-built district is keyed to the building ids that pass produces. `src/city/massing.js` then shapes every building from **its own** random stream, `rngFor(seed, salt)`. That way new architecture never shifts a lot, a sign or the baked street.
-
-Determinism matters more than it looks. The usual shortcut, `array.sort(() => rng() - 0.5)`, is not deterministic in V8: the engine calls the comparator a different number of times depending on JIT state. We measured 4 calls in 98% of runs and 5 in the rest. Each extra call consumes a random number, so the city changed from load to load. Shuffles here use a seeded Fisher-Yates (`src/core/rng.js`).
-
-### Three levels of facade
-
-| Distance | What you see | How |
+| 기능 | 키보드 | 게임패드 / 터치 |
 |---|---|---|
-| < 180 m | **Modelled facade kits**: recessed windows, frames, AC units, grilles | Cells sliced from CC BY models in Blender (`kit_slice.py`), instanced along facades, with LODs |
-| any | **Captured facades** of real-looking HK blocks | Orthographic Blender renders of whole modelled buildings (`facade_ortho.py`), packed into texture arrays of albedo, glass/window-id mask and normal. Each window gets its own **interior-mapped room** with parallax walls, furniture, curtains and a lamp, lit or dark per room. |
-| any | **Procedural curtain walls** on towers | Analytic in the shader, sharp at any distance. Every tower draws its own grid, floor height, glazing ratio, glass tint and spandrel colour. Offices light by tenant: runs of bays per floor in warm, neutral or daylight tones, with corridor lights left on after hours. |
+| 가속 / 제동 | W / S | RT / LT, 왼쪽 스틱 |
+| 방향 조작 | A / D | 왼쪽 스틱 |
+| 상승 / 하강 | Space / C | 오른쪽 스틱, 상승 / 하강 버튼 |
+| 부스트 | Shift | RB, 부스트 버튼 |
+| 드리프트 | 고속에서 Shift + 방향 조작 | 부스트 중 방향 조작 |
+| 카메라 전환 | V | 시점 버튼 |
+| 지도 | M | 지도 버튼 |
+| 도로로 복귀 / 코스 재시작 | R | 메뉴에서 선택 |
+| 경적 | F | - |
+| 라디오 켜기 / 끄기 | B | - |
+| 메뉴 / 일시정지 | Esc | ☰ |
+| 시작 / 근처 코스 참가 | Enter | 버튼 터치 |
 
-### Temple Street: composed, baked, packed
+진행도와 최고 기록, 설정은 브라우저의 localStorage에 저장합니다. 서버 계정이나 로그인은 필요 없습니다. 다른 브라우저 또는 기기에는 자동 동기화되지 않습니다.
 
-`assets-src/district/compose.py` builds the street in Blender. `export.py` unwraps and bakes each object's diffuse light in Cycles, then shelf-packs the results into one 4096² lightmap at roughly 10–14 px/m. It also bakes the light at street level top-down for the ground and for anything that moves. `pack.mjs` writes meshopt-compressed glTF and KTX2 textures: ETC1S for colour, UASTC for normals and data, and **UASTC HDR** for the lightmap. Props get distance LODs, and phones load 1K texture variants.
+## 로컬 실행
 
-### Light without a thousand lights
-
-Thousands of neon signs, shop windows and street lamps can't each be a real light, so their spill is rendered once into a top-down 2048² **street-light map** covering 3.5 km (`lightmap.js`). Roads, facades, rain, the fog and the underside of the cloud deck all sample it. Colour from every emitter costs one texture read. Walls also take a city-glow ambient term, warm and neon-tinted near the street and fading to the clouds' violet above. Dark glass picks up a matching reflection.
-
-### Atmosphere
-
-- **Fog** (`atmos/fog.js`) is analytic. Exponential height haze plus a cloud slab are integrated along each view ray, coloured by the street-light map below and moonlit from above.
-- **Rain** (`atmos/rain.js`) is stateless. Each drop is a pure function of its index and time, drawn as a streak along its velocity relative to the camera, with splashes near the ground.
-- **Post** (`core/post.js`) is scene, then bloom, grade, ACES, chromatic fringe and vignette, FXAA, and grain.
-
-### Performance
-
-A frame-time governor (`core/governor.js`) scales the scene pass when frames are missed and probes back up after a run of clean ones. Measured on an Apple M4 Max at 1920×1080 and device-pixel-ratio 2 (3840×2160 internal), headed Chrome:
-
-| View | Frame time p95 | Frames > 20 ms | Draw calls | Triangles |
-|---|---|---|---|---|
-| Street level, Temple Street | 18.6 ms | 0 % | ~2,000 | 23 M |
-| Mid-air over the markets | 18.5 ms | 0 % | ~1,330 | 19 M |
-| Central business district | 18.6 ms | 0 % | ~1,300 | 10 M |
-| High over the city | 18.6 ms | 0 % | ~830 | 8 M |
-
-That is a locked 60 fps (vsync) with the resolution scale at 1.00 throughout. Most geometry is instanced in 300–400 m chunks and culled per chunk.
-
-## Run it locally
+Node.js **20.19 이상**이 필요합니다. 이 포크의 배포는 Node.js 22를 사용합니다.
 
 ```bash
-git clone https://github.com/billpwchan/neon-zenith.git
+git clone https://github.com/sigco3111/neon-zenith.git
 cd neon-zenith
-npm install
-npm run dev          # http://127.0.0.1:5200
+npm ci
+npm run dev
 ```
 
-This needs Node 20.19+. `npm run build` writes a static site to `dist/`, which you can host anywhere. The first load is about 130 MB of assets on desktop (less on phones), which are cached after that. The `deploy/` folder holds the hardened Caddy-in-Docker setup and the release script used for the live demo.
-
-### Browser support
-
-WebGPU runs in Chrome and Edge 113+, Safari 26+ and Firefox 141+ on Windows. Other browsers fall back to WebGL2 automatically. Add `?webgl` to force the fallback.
-
-### Debug URLs
-
-| Parameter | Effect |
-|---|---|
-| `?play` | Skip the title, start free ride |
-| `?run=0`…`3` | Start a time trial (market dash, sky lane, ascent, dive) |
-| `&bot` | Let the autopilot fly the run |
-| `?fly` / `?cam=x,y,z,yaw,pitch` | Free camera, optionally placed |
-| `?webgl` | Force the WebGL2 backend |
-
-`node scripts/shot.mjs '<json>'` takes headed screenshots and frame-time measurements at a given size and pixel ratio. It is the tool behind the numbers above. It drives Chrome through Playwright: set `CHROME_PATH` to a Chrome or Chromium binary, or run `npx playwright-core install chromium` once.
-
-## Rebuilding the assets
-
-The packed, game-ready assets are committed under `public/`. The source models are not, because they are large and each comes from its own site; see [CREDITS.md](CREDITS.md). To rebuild, download the sources into `assets-src/` and run the pipelines from the repository root with Blender 5.x:
+터미널에 표시되는 주소를 여세요. Vite 기본 포트는 `5200`이며 이 한국어판은 `/neon-zenith/` 경로를 사용합니다.
 
 ```bash
-# captured facades → texture arrays (plus ambientCG Facade009 and Facade019B in assets-src/acg/)
-for c in assets-src/facade/cfg/{hk3a,hk3c,hk3d,hk3e,hk3f,proc}.json; do blender -b --python assets-src/facade_ortho.py -- $c; done
-node assets-src/facades.mjs
-
-# modelled facade kits
-blender -b --python assets-src/kit_slice.py -- assets-src/kit/cfg/brown.json
-node assets-src/kit.mjs brown hk-brown '^building3win_40$' '^(Merged_materials|building3win_[01]?$|building3win_39$)'
-
-# Temple Street: compose, bake (≈6 min), pack
-blender -b --python assets-src/district/compose.py --python assets-src/district/export.py -- assets-src/district/cfg.json
-node assets-src/district/pack.mjs
-
-# neon sign atlas, typeset in the browser
-node scripts/bake/bake.mjs
+npm run build
+npm run preview
 ```
 
-## Project layout
+빌드는 `dist/`에 정적 파일을 만듭니다. 별도 API나 게임 서버는 없습니다.
 
+## GitHub Pages 배포
+
+`.github/workflows/pages.yml`은 `main`에 push하거나 Actions에서 수동 실행하면 빌드 후 GitHub Pages에 배포합니다.
+
+1. 저장소 **Settings → Pages → Source**를 **GitHub Actions**로 설정합니다.
+2. **Actions**에서 워크플로를 활성화합니다.
+3. **Deploy Korean edition to GitHub Pages**를 실행합니다.
+4. 배포 작업의 `github-pages` 환경에 표시되는 사이트 주소를 엽니다.
+
+`vite.config.js`의 `base`는 `/neon-zenith/`입니다. 텍스처·모델·구역 경로는 `import.meta.env.BASE_URL`을 사용하므로 프로젝트 Pages 하위 경로에서도 로드됩니다. 저장소 이름을 바꾸면 `base`도 바꿔야 합니다. 기록 공유 링크는 현재 배포 도메인과 base를 사용합니다.
+
+## 브라우저와 성능
+
+three.js `WebGPURenderer`와 TSL을 사용합니다. 지원 환경에서는 WebGPU를 사용하고 그 외에는 WebGL2로 폴백합니다. 주소에 `?webgl`을 붙이면 WebGL2를 강제합니다.
+
+- 데스크톱 첫 로딩은 원작 기준 약 130MB의 에셋을 내려받습니다. 저장소의 `public/` 전체는 약 144MB입니다.
+- 첫 실행의 에셋 다운로드와 셰이더 컴파일은 시간이 걸릴 수 있습니다. 이후에는 브라우저 캐시를 사용합니다.
+- 모바일은 작은 텍스처와 전용 HUD를 사용하지만 구형 기기에서는 느릴 수 있습니다.
+- 설정의 화질, 비, 화면 정보 등을 조절하세요. 원작에는 프레임 시간에 따라 렌더링 해상도를 조절하는 기능이 있습니다.
+- 원작의 M4 Max 성능 측정 결과는 `README.en.md`에 있습니다. 모든 기기에서 같은 프레임을 보장하지 않습니다.
+
+## 개발용 주소 옵션
+
+| 옵션 | 기능 |
+|---|---|
+| `?play` | 시작 화면을 건너뛰고 자유 비행 |
+| `?run=0` ~ `?run=3` | 해당 타임어택 시작 |
+| `?run=0&bot` | 타임어택 자동 비행 테스트 |
+| `?fly` | 자유 카메라 |
+| `?cam=x,y,z,yaw,pitch` | 지정 위치의 카메라 |
+| `?webgl` | WebGL2 강제 |
+
+## 프로젝트 구조
+
+```text
+src/city/       도시 생성, 건물, 구역, 간판과 광고, 조명
+src/vehicle/    호버카 비행 모델, 카메라, 차량 모델과 반사
+src/life/       지상 및 하늘 교통
+src/atmos/      하늘, 구름, 안개, 비, 번개
+src/game/       타임어택, 샤드, 진행과 메달
+src/core/       후처리, 입력, 성능 조절, 난수
+src/ui/         HUD, 메뉴, 지도, 터치 입력
+src/audio/      합성 효과음과 음악
+public/         게임용 모델과 텍스처
+assets-src/     Blender 및 Node 에셋 제작 파이프라인
+scripts/        스크린샷, 성능 측정, 간판 베이크 도구
 ```
-src/
-  city/      layout + massing (the generator), buildings (facade shader), facadekit, district,
-             adscreens, signs, props, lightmap, zenith
-  vehicle/   KITE flight model, chase camera, car model and reflections
-  life/      street traffic, sky traffic
-  atmos/     sky, clouds, fog, rain, lightning
-  game/      runs, shards, medals, title sequence
-  core/      post stack, frame governor, input, seeded rng
-  ui/        HUD, menus, city map, touch controls
-  audio/     synthesised sound and score
-assets-src/  Blender and Node pipelines that turn source models into public/
-scripts/     screenshot and timing harness, sign atlas baker
-```
 
-## How it was made
+## 제작 방식과 원본 자료
 
-Built over a weekend in October 2026 with [Claude Code](https://claude.com/claude-code) running **Claude Opus 5.5**. I set the direction and reviewed every pass from screenshots and real-GPU frame timings; the model wrote the code, the TSL shaders and the Blender pipelines.
+도시 생성은 고정 시드와 Fisher-Yates 셔플을 사용합니다. 가까운 건물은 모델링한 파사드 모듈, 먼 건물은 캡처한 파사드와 텍스처 배열, 고층 오피스는 셰이더 기반 커튼월로 표현합니다. 도로와 빗줄기, 안개는 거리 조명 맵을 공유하고, 후처리는 블룸·색 보정·ACES·FXAA·그레인을 포함합니다.
 
-## More scenes
+원작의 자세한 기술 설명, 에셋 재제작 명령, 성능 표, 갤러리, 제작 후기와 다른 작품 링크는 내용 변경 없이 **[README.en.md](README.en.md)**에 보존했습니다. 한국어화 과정에서는 모델 재다운로드나 Blender 재베이크를 하지 않았습니다.
 
-The same author's other real-time scenes, each open source and running in the browser.
+## 라이선스와 크레딧
 
-<table><tr>
-<td width="33%" valign="top"><a href="https://github.com/billpwchan/sakura-fantasy"><img src="https://raw.githubusercontent.com/billpwchan/sakura-fantasy/main/docs/media/social-preview.jpg" alt="桜幻想 Sakura Fantasy"></a><br><b><a href="https://github.com/billpwchan/sakura-fantasy">桜幻想 Sakura Fantasy</a></b><br><sub>A boat journey through a Japanese river valley in four seasons · <a href="https://sakura.billpwchan.art/">live</a></sub></td>
-<td width="33%" valign="top"><a href="https://github.com/billpwchan/halcyon"><img src="https://raw.githubusercontent.com/billpwchan/halcyon/main/docs/media/social-preview.jpg" alt="Halcyon"></a><br><b><a href="https://github.com/billpwchan/halcyon">Halcyon</a></b><br><sub>A tropical atoll through one day: FFT ocean, reef, bioluminescent night · <a href="https://halcyon.billpwchan.art/">live</a></sub></td>
-<td width="33%" valign="top"><a href="https://github.com/billpwchan/utsuroi"><img src="https://raw.githubusercontent.com/billpwchan/utsuroi/main/docs/media/social-preview.jpg" alt="移ろい Utsuroi"></a><br><b><a href="https://github.com/billpwchan/utsuroi">移ろい Utsuroi</a></b><br><sub>A Kyoto house and garden, walked from first light to last · <a href="https://utsuroi.billpwchan.art/">live</a></sub></td>
-</tr></table>
+- **코드:** MIT. 원저작자 Bill Chan의 저작권과 라이선스 고지를 유지합니다.
+- **3D 모델:** 각 원저작자의 CC BY 4.0. 사용한 모델, 출처, 가공 내용은 [CREDITS.md](CREDITS.md)와 게임 내 크레딧에서 확인하세요.
+- **텍스처 / HDRI:** Poly Haven 및 ambientCG의 CC0.
+- **폰트:** SIL Open Font License. 새 Noto Sans KR의 고지도 포함했습니다.
+- **광고 / 간판 / 오디오:** 원작 프로젝트를 위해 만든 자료입니다.
 
-## Credits
-
-The code in this repository is MIT licensed. The 3D models are CC BY 4.0 by their authors. Textures and the HDRI are CC0 from Poly Haven and ambientCG. Fonts are under the SIL Open Font License. The advertising, signs and audio were made for this project. The full list, with links and the use of each asset, is in **[CREDITS.md](CREDITS.md)** and in the game under *Credits*.
-
-<div align="center"><br><sub>霓虹天頂 · Kowloon, 2077, raining.</sub></div>
+한국어판은 원작의 독립 포크이며 원작자의 공식 번역판을 의미하지 않습니다. 첨부된 갤러리 이미지는 원작 화면입니다.

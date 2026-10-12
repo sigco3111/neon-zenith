@@ -40,10 +40,10 @@ export function shopFit(seed, w) {
 export async function loadShopKit() {
   const loader = new GLTFLoader().setMeshoptDecoder(MeshoptDecoder);
   const [gltf, albedo, normal, mr] = await Promise.all([
-    loader.loadAsync('/models/shops.glb'),
-    loadArray('/tex/shopkit_albedo.webp', 1024, { srgb: true }),
-    loadArray('/tex/shopkit_normal.webp', 1024),
-    loadArray('/tex/shopkit_mr.webp', 1024),
+    loader.loadAsync(`${import.meta.env.BASE_URL}models/shops.glb`),
+    loadArray(`${import.meta.env.BASE_URL}tex/shopkit_albedo.webp`, 1024, { srgb: true }),
+    loadArray(`${import.meta.env.BASE_URL}tex/shopkit_normal.webp`, 1024),
+    loadArray(`${import.meta.env.BASE_URL}tex/shopkit_mr.webp`, 1024),
   ]);
   gltf.scene.updateMatrixWorld(true);
   const mods = new Map();

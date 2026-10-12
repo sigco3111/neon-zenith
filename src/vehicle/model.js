@@ -193,7 +193,7 @@ export function createKiteModel(env) {
   }
 
   root.userData.build = async (lightmap) => {
-    const gltf = await new GLTFLoader().setMeshoptDecoder(MeshoptDecoder).loadAsync('/models/kite.glb');
+    const gltf = await new GLTFLoader().setMeshoptDecoder(MeshoptDecoder).loadAsync(`${import.meta.env.BASE_URL}models/kite.glb`);
     const src = gltf.scene;
     src.updateMatrixWorld(true);
     const box0 = new THREE.Box3().setFromObject(src);

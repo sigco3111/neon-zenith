@@ -4,23 +4,23 @@ import { fmtTime } from './hud.js';
 import { CITY } from '../city/layout.js';
 
 const CONTROLS = [
-  ['油門 / 剎車 Thrust / brake', 'W / S'],
-  ['轉向 Steer', 'A / D'],
-  ['上升 Climb', 'SPACE'],
-  ['下降 Descend', 'C'],
-  ['加速 Boost', 'SHIFT'],
-  ['漂移 Drift', 'SHIFT + turn at speed'],
-  ['鏡頭 Camera', 'V'],
-  ['地圖 Map', 'M'],
-  ['重置 Reset to street', 'R'],
-  ['響號 Horn', 'F'],
-  ['電台 Radio on/off', 'B'],
-  ['選單 Menu', 'ESC'],
-  ['手掣 Gamepad', 'RT/LT · L-stick · R-stick lift · RB boost'],
+  ['가속 / 제동', 'W / S'],
+  ['방향 조작', 'A / D'],
+  ['상승', 'SPACE'],
+  ['하강', 'C'],
+  ['부스트', 'SHIFT'],
+  ['드리프트', 'SHIFT + 고속에서 방향 조작'],
+  ['카메라', 'V'],
+  ['지도', 'M'],
+  ['도로로 복귀', 'R'],
+  ['경적', 'F'],
+  ['라디오 켜기 / 끄기', 'B'],
+  ['메뉴', 'ESC'],
+  ['게임패드', 'RT/LT · 왼쪽 스틱 조향 · 오른쪽 스틱 상승/하강 · RB 부스트'],
 ];
 
 const REPO = 'https://github.com/billpwchan/neon-zenith';
-const SITE = 'https://zenith.billpwchan.art';
+const SITE = new URL(import.meta.env.BASE_URL, location.origin).href.replace(/\/$/, '');
 
 // third-party models in the build, and what each licence asks
 const CREDITS = [
@@ -47,35 +47,35 @@ export class Screens {
     root.insertAdjacentHTML('beforeend', `
       <div id="title" class="hidden">
         <div class="t-wrap">
-          <div class="t-kicker">KOWLOON · 2077 · 雨夜</div>
-          <div class="t-zh"><span>霓</span><span>虹</span><span>天</span><span>頂</span></div>
+          <div class="t-kicker">카오룽 · 2077 · 비 내리는 밤</div>
+          <div class="t-zh"><span>네온</span><span>제니스</span></div>
           <div class="t-en">NEON ZENITH</div>
-          <div class="t-tag">A vertical city in the rain. Drive the market streets, ride the sky lanes, break through the cloud deck and land on the Zenith, 1,418 metres up.<br><span class="zh">雨中的垂直城市 — 由街市飛上雲端。</span></div>
+          <div class="t-tag">비 내리는 수직 도시. 야시장 거리를 달리고, 하늘 항로를 따라 구름층을 뚫고, 높이 1,418m의 제니스에 착륙하세요.<br><span class="zh">야시장에서 구름 위까지, 도시를 자유롭게 누비세요.</span></div>
           <div class="t-menu">
-            <button class="btn primary" data-act="start"><span class="zh">出發</span>FREE RIDE</button>
-            <button class="btn" data-act="runs"><span class="zh">賽道</span>RUNS</button>
-            <button class="btn" data-act="settings"><span class="zh">設定</span>SETTINGS</button>
-            <button class="btn" data-act="controls"><span class="zh">操作</span>CONTROLS</button>
-            <button class="btn" data-act="credits"><span class="zh">鳴謝</span>CREDITS</button>
-            <a class="btn ghost" href="${REPO}" target="_blank" rel="noopener"><span class="zh">源碼</span>GITHUB ★</a>
+            <button class="btn primary" data-act="start"><span class="zh">출발</span>자유 비행</button>
+            <button class="btn" data-act="runs"><span class="zh">코스</span>타임어택</button>
+            <button class="btn" data-act="settings"><span class="zh">설정</span>환경 설정</button>
+            <button class="btn" data-act="controls"><span class="zh">조작</span>조작법</button>
+            <button class="btn" data-act="credits"><span class="zh">제작 정보</span>크레딧</button>
+            <a class="btn ghost" href="${REPO}" target="_blank" rel="noopener"><span class="zh">소스</span>GITHUB ★</a>
           </div>
-          <div class="t-press">PRESS ENTER</div>
+          <div class="t-press">ENTER 키로 시작</div>
         </div>
-        <div class="t-foot">WEBGPU · THREE.JS · LIT IN BLENDER CYCLES<br>POLY HAVEN CC0 · MODELS CC BY · FONTS OFL</div>
+        <div class="t-foot">WEBGPU · THREE.JS · BLENDER CYCLES 조명<br>POLY HAVEN CC0 · 모델 CC BY · 폰트 OFL</div>
       </div>
       <div id="pause" class="screen hidden"><div class="sheet"></div></div>
       <div id="mapscreen" class="screen hidden">
         <canvas></canvas>
         <div class="map-legend">
-          <h3><span class="zh">地圖</span>CITY MAP</h3>
-          <div><i style="background:#3be8ff;transform:rotate(45deg)"></i>YOU · 你</div>
-          <div><i style="background:#ffb547;border-radius:50%"></i>RUN START · 賽道起點</div>
-          <div><i style="background:#ff3df2;transform:rotate(45deg)"></i>SHARD · 晶片</div>
-          <div><i style="background:#ff3df2;border-radius:50%"></i>THE ZENITH · 天頂</div>
-          <div><i style="border:1px solid #3be8ff"></i>WAYPOINT · 導航點</div>
+          <h3><span class="zh">지도</span>도시 지도</h3>
+          <div><i style="background:#3be8ff;transform:rotate(45deg)"></i>현재 위치</div>
+          <div><i style="background:#ffb547;border-radius:50%"></i>코스 출발점</div>
+          <div><i style="background:#ff3df2;transform:rotate(45deg)"></i>데이터 샤드</div>
+          <div><i style="background:#ff3df2;border-radius:50%"></i>제니스</div>
+          <div><i style="border:1px solid #3be8ff"></i>목적지</div>
         </div>
-        <button class="btn map-close interactive" data-act="closemap"><span class="zh">關閉</span>CLOSE · M</button>
-        <div class="map-tip">CLICK TO SET A WAYPOINT · DRAG TO PAN · WHEEL TO ZOOM</div>
+        <button class="btn map-close interactive" data-act="closemap"><span class="zh">닫기</span>닫기 · M</button>
+        <div class="map-tip">클릭: 목적지 지정 · 드래그: 지도 이동 · 휠: 확대/축소</div>
       </div>
       <div id="results" class="screen hidden"><div class="sheet"></div></div>`);
     this.title = root.querySelector('#title');
@@ -136,44 +136,44 @@ export class Screens {
     const seg = (k, opts) => `<span class="seg">${opts.map(([v, l]) => `<button class="${String(s[k]) === String(v) ? 'on' : ''}" data-act="set" data-k="${k}" data-v="${v}">${l}</button>`).join('')}</span>`;
     const slider = (k, min, max, step) => `<span class="val">${s[k]}</span><input type="range" min="${min}" max="${max}" step="${step}" value="${s[k]}" data-k="${k}">`;
     const tabs = `<div class="tabs">
-      <button class="btn ${tab === 'menu' ? 'sel' : ''}" data-act="menu"><span class="zh">暫停</span>PAUSED</button>
-      <button class="btn ${tab === 'runs' ? 'sel' : ''}" data-act="runs"><span class="zh">賽道</span>RUNS</button>
-      <button class="btn ${tab === 'settings' ? 'sel' : ''}" data-act="settings"><span class="zh">設定</span>SETTINGS</button>
-      <button class="btn ${tab === 'controls' ? 'sel' : ''}" data-act="controls"><span class="zh">操作</span>CONTROLS</button>
-      <button class="btn ${tab === 'credits' ? 'sel' : ''}" data-act="credits"><span class="zh">鳴謝</span>CREDITS</button></div>`;
+      <button class="btn ${tab === 'menu' ? 'sel' : ''}" data-act="menu"><span class="zh">일시정지</span>일시정지 중</button>
+      <button class="btn ${tab === 'runs' ? 'sel' : ''}" data-act="runs"><span class="zh">코스</span>타임어택</button>
+      <button class="btn ${tab === 'settings' ? 'sel' : ''}" data-act="settings"><span class="zh">설정</span>환경 설정</button>
+      <button class="btn ${tab === 'controls' ? 'sel' : ''}" data-act="controls"><span class="zh">조작</span>조작법</button>
+      <button class="btn ${tab === 'credits' ? 'sel' : ''}" data-act="credits"><span class="zh">제작 정보</span>크레딧</button></div>`;
     let body = '';
     if (tab === 'menu') {
       body = `<div class="runs">
-        <div class="runc" data-act="resume"><div class="ix">▶</div><div class="nm"><span class="zh">繼續</span><small>RESUME · ESC</small></div><div></div></div>
+        <div class="runc" data-act="resume"><div class="ix">▶</div><div class="nm"><span class="zh">계속</span><small>계속하기 · ESC</small></div><div></div></div>
         ${this.inRun
-          ? `<div class="runc" data-act="reset"><div class="ix">↺</div><div class="nm"><span class="zh">重新開始</span><small>RESTART RUN · R</small></div><div></div></div>
-        <div class="runc" data-act="endrun"><div class="ix">×</div><div class="nm"><span class="zh">結束賽道</span><small>END RUN</small></div><div></div></div>`
-          : `<div class="runc" data-act="reset"><div class="ix">↺</div><div class="nm"><span class="zh">返回街道</span><small>BACK TO THE STREET · R</small></div><div></div></div>`}
+          ? `<div class="runc" data-act="reset"><div class="ix">↺</div><div class="nm"><span class="zh">다시 시작</span><small>코스 재시작 · R</small></div><div></div></div>
+        <div class="runc" data-act="endrun"><div class="ix">×</div><div class="nm"><span class="zh">코스 종료</span><small>그만하기</small></div><div></div></div>`
+          : `<div class="runc" data-act="reset"><div class="ix">↺</div><div class="nm"><span class="zh">도로로 복귀</span><small>도로로 복귀 · R</small></div><div></div></div>`}
       </div>`;
     } else if (tab === 'runs') {
       body = `<div class="runs">${this.runs.list.map((r, i) => {
         const best = this.runs.best(i);
         const medal = best ? this.runs.medal(i, best) : null;
         return `<div class="runc" data-act="run" data-i="${i}"><div class="ix">0${i + 1}</div><div class="nm"><span class="zh">${r.zh}</span><small>${r.en}</small><div class="ds">${r.desc}</div></div>
-          <div class="bt">${best ? `<b>${fmtTime(best)}${medal ? `<span class="medal ${medal}"></span>` : ''}</b>BEST` : `<b>—</b>GOLD ${fmtTime(r.medals[0])}`}</div></div>`;
+          <div class="bt">${best ? `<b>${fmtTime(best)}${medal ? `<span class="medal ${medal}"></span>` : ''}</b>최고 기록` : `<b>—</b>금메달 ${fmtTime(r.medals[0])}`}</div></div>`;
       }).join('')}</div>`;
     } else if (tab === 'settings') {
       body = `
-        <div class="row"><span><span class="zh">畫質</span>QUALITY</span>${seg('quality', [['auto', 'AUTO'], ['high', 'HIGH'], ['medium', 'MEDIUM'], ['low', 'LOW']])}</div>
-        <div class="row"><span><span class="zh">雨量</span>RAIN</span>${seg('rain', [[1, 'STORM'], [0.6, 'STEADY'], [0.25, 'DRIZZLE'], [0, 'OFF']])}</div>
-        <div class="row"><span><span class="zh">主音量</span>MASTER VOLUME</span><span>${slider('volume', 0, 1, 0.05)}</span></div>
-        <div class="row"><span><span class="zh">音樂</span>MUSIC</span><span>${slider('music', 0, 1, 0.05)}</span></div>
-        <div class="row"><span><span class="zh">視野</span>FIELD OF VIEW</span><span>${slider('fov', 50, 80, 1)}</span></div>
-        <div class="row"><span><span class="zh">介面</span>HUD</span>${seg('hud', [[1, 'ON'], [0, 'OFF']])}</div>
-        <div class="row"><span><span class="zh">鏡頭晃動</span>CAMERA SHAKE</span>${seg('shake', [[1, 'ON'], [0, 'OFF']])}</div>`;
+        <div class="row"><span><span class="zh">화질</span>그래픽</span>${seg('quality', [['auto', '자동'], ['high', '높음'], ['medium', '중간'], ['low', '낮음']])}</div>
+        <div class="row"><span><span class="zh">강우량</span>비</span>${seg('rain', [[1, '폭우'], [0.6, '보통'], [0.25, '이슬비'], [0, '끄기']])}</div>
+        <div class="row"><span><span class="zh">전체 음량</span>전체 소리</span><span>${slider('volume', 0, 1, 0.05)}</span></div>
+        <div class="row"><span><span class="zh">음악</span>음악 음량</span><span>${slider('music', 0, 1, 0.05)}</span></div>
+        <div class="row"><span><span class="zh">시야각</span>시야 범위</span><span>${slider('fov', 50, 80, 1)}</span></div>
+        <div class="row"><span><span class="zh">화면 정보</span>HUD</span>${seg('hud', [[1, '켜기'], [0, '끄기']])}</div>
+        <div class="row"><span><span class="zh">카메라 흔들림</span>흔들림 효과</span>${seg('shake', [[1, '켜기'], [0, '끄기']])}</div>`;
     } else if (tab === 'credits') {
       body = `<div class="cred">${CREDITS.map(([name, by, lic, id, use]) => `<a href="https://sketchfab.com/3d-models/${id}" target="_blank" rel="noopener"><span>${name}<small>${use}</small></span><span>${by}<small>${lic}</small></span></a>`).join('')}
-        <p>Textures, air-conditioners, crates and bags: Poly Haven, CC0. Distant office facades: ambientCG, CC0. Fonts: Chiron Hei HK, Chiron Sung HK, Oxanium, JetBrains Mono, Monoton, Tilt Neon, Neonderthaw, LXGW WenKai TC, Noto Serif TC, under the SIL Open Font License. The models were re-exported and compressed for the web, and the building models sliced and rendered into facades; <a href="${REPO}/blob/main/CREDITS.md" target="_blank" rel="noopener">CREDITS.md</a> has the details. Licences: <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>, <a href="https://openfontlicense.org" target="_blank" rel="noopener">SIL OFL 1.1</a>, <a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" rel="noopener">CC0</a>.</p>
+        <p>Textures, air-conditioners, crates and bags: Poly Haven, CC0. Distant office facades: ambientCG, CC0. Fonts: Noto Sans KR (SIL OFL 1.1; see third-party-notices/Noto-Sans-KR-OFL.txt), Chiron Hei HK, Chiron Sung HK, Oxanium, JetBrains Mono, Monoton, Tilt Neon, Neonderthaw, LXGW WenKai TC, Noto Serif TC, under the SIL Open Font License. The models were re-exported and compressed for the web, and the building models sliced and rendered into facades; <a href="${REPO}/blob/main/CREDITS.md" target="_blank" rel="noopener">CREDITS.md</a> has the details. Licences: <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>, <a href="https://openfontlicense.org" target="_blank" rel="noopener">SIL OFL 1.1</a>, <a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" rel="noopener">CC0</a>.</p>
         <p class="src"><span class="zh">源碼</span>Neon Zenith is open source under the MIT licence: <a href="${REPO}" target="_blank" rel="noopener">github.com/billpwchan/neon-zenith</a> ★</p></div>`;
     } else {
       body = `<div class="ctl">${CONTROLS.map(([a, k]) => `<div><span>${a}</span><span>${k}</span></div>`).join('')}</div>`;
     }
-    this.pauseSheet.innerHTML = `<h2><span class="zh">選單</span>NEON ZENITH</h2>${tabs}${body}`;
+    this.pauseSheet.innerHTML = `<h2><span class="zh">메뉴</span>NEON ZENITH</h2>${tabs}${body}`;
     this.pauseSheet.querySelectorAll('input[type=range]').forEach((inp) => {
       inp.addEventListener('input', () => {
         this.settings[inp.dataset.k] = +inp.value;
@@ -258,17 +258,17 @@ export class Screens {
     g.textAlign = 'center';
     for (const d of districtLabels()) {
       g.fillStyle = 'rgba(232,240,255,0.75)';
-      g.font = `600 ${Math.round(13 + this.view.zoom * 2)}px "Chiron Hei HK Variable", sans-serif`;
+      g.font = `600 ${Math.round(13 + this.view.zoom * 2)}px "Noto Sans KR Variable", "Chiron Hei HK Variable", sans-serif`;
       g.fillText(d.zh, W(d.x), Z(d.z));
       g.fillStyle = 'rgba(190,205,235,0.45)';
-      g.font = `500 9px "Oxanium Variable", sans-serif`;
-      g.fillText(d.en.split('').join(String.fromCharCode(8202)), W(d.x), Z(d.z) + 14);
+      g.font = `500 9px "Noto Sans KR Variable", "Oxanium Variable", sans-serif`;
+      g.fillText(d.en, W(d.x), Z(d.z) + 14);
     }
     // markers
     for (const m of state.markers) {
       g.save();
       g.translate(W(m.x), Z(m.z));
-      if (m.label) { g.fillStyle = m.color; g.font = '500 10px "Oxanium Variable"'; g.textAlign = 'left'; g.fillText(m.label, 9, 4); }
+      if (m.label) { g.fillStyle = m.color; g.font = '500 10px "Noto Sans KR Variable", "Oxanium Variable"'; g.textAlign = 'left'; g.fillText(m.label, 9, 4); }
       g.fillStyle = m.color; g.strokeStyle = m.color;
       if (m.shape === 'ring') { g.lineWidth = 1.5; g.beginPath(); g.arc(0, 0, 6, 0, Math.PI * 2); g.stroke(); }
       else if (m.shape === 'dot') { g.beginPath(); g.arc(0, 0, 4.5, 0, Math.PI * 2); g.fill(); }
@@ -291,14 +291,14 @@ export class Screens {
     this.lastRun = i;
     const r = this.runs.list[i];
     const sheet = this.results.querySelector('.sheet');
-    const names = ['GOLD', 'SILVER', 'BRONZE'];
+    const names = ['금메달', '은메달', '동메달'];
     sheet.innerHTML = `<h2><span class="zh">${r.zh}</span>${r.en}</h2>
-      <div class="sub">${newBest ? 'NEW BEST · 新紀錄' : 'RUN COMPLETE · 完成'}</div>
+      <div class="sub">${newBest ? '새 최고 기록!' : '코스 완주'}</div>
       <div class="big">${fmtTime(time)}</div>
-      <div class="sub">BEST ${fmtTime(best)}</div>
+      <div class="sub">최고 기록 ${fmtTime(best)}</div>
       <div class="medalrow">${r.medals.map((m, k) => `<span class="${time <= m ? 'got' : ''}">${names[k]} ${fmtTime(m)}<span class="medal ${['gold', 'silver', 'bronze'][k]}" style="opacity:${time <= m ? 1 : 0.2}"></span></span>`).join('')}</div>
-      <div class="foot"><button class="btn" data-act="share" data-i="${i}" data-t="${time}" data-m="${medal || ''}"><span class="zh">分享</span>SHARE</button><button class="btn" data-act="retry" data-i="${i}"><span class="zh">再來</span>RETRY · R</button><button class="btn primary" data-act="closeres"><span class="zh">繼續</span>CONTINUE · ENTER</button></div>
-      <a class="src" href="${REPO}" target="_blank" rel="noopener"><span class="zh">源碼</span>OPEN SOURCE ON GITHUB ★</a>`;
+      <div class="foot"><button class="btn" data-act="share" data-i="${i}" data-t="${time}" data-m="${medal || ''}"><span class="zh">공유</span>기록 공유</button><button class="btn" data-act="retry" data-i="${i}"><span class="zh">다시</span>재도전 · R</button><button class="btn primary" data-act="closeres"><span class="zh">계속</span>계속하기 · ENTER</button></div>
+      <a class="src" href="${REPO}" target="_blank" rel="noopener"><span class="zh">소스</span>GITHUB 공개 소스 ★</a>`;
     this.results.classList.remove('hidden');
   }
 
@@ -306,12 +306,12 @@ export class Screens {
   async shareRun(i, t, medal) {
     const r = this.runs.list[i];
     const url = `${SITE}/?run=${i}`;
-    const text = `${r.en} ${r.zh} · ${fmtTime(t)}${medal ? ` · ${medal.toUpperCase()}` : ''} in Neon Zenith. Beat it, in your browser:`;
+    const text = `${r.en} ${r.zh} · ${fmtTime(t)}${medal ? ` · ${{ gold: '금메달', silver: '은메달', bronze: '동메달' }[medal]}` : ''} · 네온 제니스. 브라우저에서 이 기록에 도전하세요:`;
     const btn = this.results.querySelector('[data-act=share]');
     try {
-      if (navigator.share && matchMedia('(pointer: coarse)').matches) { await navigator.share({ title: 'Neon Zenith 霓虹天頂', text, url }); return; }
+      if (navigator.share && matchMedia('(pointer: coarse)').matches) { await navigator.share({ title: 'Neon Zenith 네온 제니스', text, url }); return; }
       await navigator.clipboard.writeText(`${text} ${url}`);
-      btn.innerHTML = '<span class="zh">已複製</span>LINK COPIED';
+      btn.innerHTML = '<span class="zh">복사 완료</span>링크를 복사했어요';
     } catch { /* share sheet dismissed or clipboard denied */ }
   }
 

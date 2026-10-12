@@ -124,10 +124,10 @@ function pathLength(pts, start) {
 
 export function buildRuns(city) {
   const defs = [
-    { zh: '街市衝刺', en: 'MARKET DASH', desc: 'Street level through the Temple night market. Keep it on the tarmac, keep left.', route: marketRoute(city), speeds: [26, 20, 15], ground: true },
-    { zh: '航道', en: 'SKY LANE', desc: 'North on the 168 m lane, across at 236 m, south past the Zenith. Mind the traffic.', route: laneRoute(city), speeds: [58, 46, 36] },
-    { zh: '登頂', en: 'ASCENT', desc: 'Spiral up the Zenith, through the cloud deck, and land on the pad at 1,418 m.', route: ascentRoute(city), speeds: [40, 31, 24] },
-    { zh: '俯衝', en: 'THE DIVE', desc: 'Off the pad, corkscrew down through the storm, then flat out to the harbour.', route: diveRoute(city), speeds: [60, 47, 37] },
+    { zh: '야시장 질주', en: '야시장 질주', desc: '템플 스트리트 야시장의 도로를 달립니다. 지면을 유지하며 좌측으로 주행하세요.', route: marketRoute(city), speeds: [26, 20, 15], ground: true },
+    { zh: '항로', en: '하늘 항로', desc: '168m 항로로 북진한 뒤 236m에서 횡단하고 제니스를 지나 남진합니다. 다른 차량을 조심하세요.', route: laneRoute(city), speeds: [58, 46, 36] },
+    { zh: '정상으로', en: '정상으로', desc: '제니스 주위를 나선으로 올라 구름층을 뚫고 1,418m 착륙장에 착륙하세요.', route: ascentRoute(city), speeds: [40, 31, 24] },
+    { zh: '급강하', en: '급강하', desc: '착륙장에서 뛰어내려 폭풍 속을 나선으로 급강하한 뒤 항구까지 전속력으로 달리세요.', route: diveRoute(city), speeds: [60, 47, 37] },
   ];
   const runs = [];
   for (const d of defs) {

@@ -1,3 +1,4 @@
+@import '@fontsource-variable/noto-sans-kr';
 @import '@fontsource-variable/oxanium';
 @import '@fontsource-variable/jetbrains-mono';
 @import '@fontsource-variable/chiron-hei-hk';
@@ -14,10 +15,10 @@
   --ink-faint: rgba(190, 205, 235, 0.28);
   --line: rgba(150, 225, 255, 0.28);
   --panel: linear-gradient(180deg, rgba(8, 10, 22, 0.72), rgba(8, 10, 22, 0.5));
-  --display: 'Oxanium Variable', 'Chiron Hei HK Variable', system-ui, sans-serif;
-  --mono: 'JetBrains Mono Variable', ui-monospace, monospace;
-  --zh: 'Chiron Hei HK Variable', 'PingFang HK', 'Noto Sans TC', sans-serif;
-  --zh-serif: 'Chiron Sung HK Variable', 'Songti TC', serif;
+  --display: 'Noto Sans KR Variable', 'Oxanium Variable', 'Noto Sans KR Variable', 'Chiron Hei HK Variable', system-ui, sans-serif;
+  --mono: 'Noto Sans KR Variable', 'JetBrains Mono Variable', ui-monospace, monospace;
+  --zh: 'Noto Sans KR Variable', 'Chiron Hei HK Variable', 'PingFang HK', 'Noto Sans TC', sans-serif;
+  --zh-serif: 'Noto Sans KR Variable', 'Chiron Sung HK Variable', 'Songti TC', serif;
   --glow: 0 0 6px rgba(59, 232, 255, 0.55), 0 0 18px rgba(59, 232, 255, 0.25);
   --gutter: clamp(14px, 2.2vw, 34px);
 }
@@ -263,3 +264,10 @@ input[type='range']::-moz-range-thumb { width: 12px; height: 12px; background: v
   .h-run { top: 136px; left: var(--gutter); right: auto; transform: scale(0.7); transform-origin: left top; }
   .h-prompt { bottom: calc(var(--gutter) + 30px); }
 }
+
+/* Korean labels need less tracking than the original Latin display. */
+#ui { letter-spacing: 0.02em; }
+.t-zh { font-size: clamp(48px, 7.5vw, 100px); }
+.t-en { letter-spacing: 0.25em; }
+.btn { letter-spacing: 0.06em; }
+.h-hints { letter-spacing: 0.02em; }

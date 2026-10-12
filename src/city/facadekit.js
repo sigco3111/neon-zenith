@@ -30,10 +30,10 @@ export async function loadFacadeKits() {
   const loader = new GLTFLoader().setMeshoptDecoder(MeshoptDecoder);
   return Promise.all(KITS.map(async (k) => {
     const [gltf, albedo, pbr, normal] = await Promise.all([
-      loader.loadAsync(`/models/kit_${k.name}.glb`),
-      loadArray(`/tex/kit_${k.name}_albedo.webp`, 1024, { srgb: true }),
-      loadArray(`/tex/kit_${k.name}_pbr.webp`, 1024),
-      loadArray(`/tex/kit_${k.name}_normal.webp`, 1024),
+      loader.loadAsync(`${import.meta.env.BASE_URL}models/kit_${k.name}.glb`),
+      loadArray(`${import.meta.env.BASE_URL}tex/kit_${k.name}_albedo.webp`, 1024, { srgb: true }),
+      loadArray(`${import.meta.env.BASE_URL}tex/kit_${k.name}_pbr.webp`, 1024),
+      loadArray(`${import.meta.env.BASE_URL}tex/kit_${k.name}_normal.webp`, 1024),
     ]);
     gltf.scene.updateMatrixWorld(true);
     const cells = new Map();

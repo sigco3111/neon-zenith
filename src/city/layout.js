@@ -727,4 +727,4 @@ export function indexBlocks(city) {
     m.get(key).push(blk);
   }
   city.blocksByCell = m;
-      }
+}

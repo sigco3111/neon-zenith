@@ -366,4 +366,4 @@ export function createAviationLights(city) {
   mesh.frustumCulled = false;
   mesh.name = 'aviation';
   return { group: mesh, count: n };
-      }
+}

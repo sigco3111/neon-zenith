@@ -173,7 +173,7 @@ export class Traffic {
     const loader = new GLTFLoader().setMeshoptDecoder(MeshoptDecoder);
     const counts = TYPES.map((_, i) => this.cars.filter((c) => c.type === i).length);
     this.meshes = await Promise.all(TYPES.map(async (type, ti) => {
-      const gltf = await loader.loadAsync(`/models/traffic/${type.name}.glb`);
+      const gltf = await loader.loadAsync(`${import.meta.env.BASE_URL}models/traffic/${type.name}.glb`);
       gltf.scene.updateMatrixWorld(true);
       const lods = [];
       for (const [k, near] of [['lod0', true], ['lod1', false]]) {
@@ -389,4 +389,4 @@ export class Traffic {
     if (hit > 2.5) kite.hit(hit, 'car');
     return hit;
   }
-}
+        }

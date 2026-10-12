@@ -20,27 +20,27 @@ export const CITY = {
 export const STYLE = { TENEMENT: 0, GLASS: 1, ESTATE: 2, OFFICE: 3, WAREHOUSE: 4 };
 
 export const SEEDS = [
-  { type: 'market', x: -880, z: -260, zh: '廟街夜市', en: 'TEMPLE NIGHT MARKET' },
-  { type: 'market', x: -460, z: 420, zh: '油麻地', en: 'YAU MA TEI' },
-  { type: 'market', x: -1250, z: 380, zh: '深水埗', en: 'SHAM SHUI PO' },
-  { type: 'center', x: 40, z: 40, zh: '天頂中區', en: 'ZENITH CENTRAL' },
-  { type: 'center', x: 420, z: -380, zh: '金鐘', en: 'ADMIRALTY RIDGE' },
-  { type: 'center', x: -260, z: -470, zh: '銅鑼灣', en: 'CAUSEWAY' },
-  { type: 'center', x: 360, z: 420, zh: '海港城', en: 'HARBOUR CITY' },
-  { type: 'estate', x: 1080, z: -620, zh: '彩虹邨', en: 'RAINBOW ESTATE' },
-  { type: 'estate', x: -320, z: -1180, zh: '石硤尾', en: 'SHEK KIP MEI' },
-  { type: 'mixed', x: 920, z: 340, zh: '九龍城', en: 'KOWLOON CITY' },
-  { type: 'mixed', x: -1200, z: -1000, zh: '長沙灣', en: 'CHEUNG SHA WAN' },
-  { type: 'mixed', x: 520, z: -1150, zh: '黃大仙', en: 'WONG TAI SIN' },
-  { type: 'docks', x: 760, z: 960, zh: '葵涌碼頭', en: 'KWAI CHUNG PIERS' },
-  { type: 'market', x: -820, z: 900, zh: '佐敦', en: 'JORDAN' },
+  { type: 'market', x: -880, z: -260, zh: '템플 스트리트 야시장', en: '템플 야시장' },
+  { type: 'market', x: -460, z: 420, zh: '야우마테이', en: '야우마테이' },
+  { type: 'market', x: -1250, z: 380, zh: '삼수이포', en: '삼수이포' },
+  { type: 'center', x: 40, z: 40, zh: '제니스 중심가', en: '제니스 중심가' },
+  { type: 'center', x: 420, z: -380, zh: '애드미럴티', en: '애드미럴티 능선' },
+  { type: 'center', x: -260, z: -470, zh: '코즈웨이베이', en: '코즈웨이베이' },
+  { type: 'center', x: 360, z: 420, zh: '하버 시티', en: '하버 시티' },
+  { type: 'estate', x: 1080, z: -620, zh: '레인보우 단지', en: '레인보우 단지' },
+  { type: 'estate', x: -320, z: -1180, zh: '섹킵메이', en: '섹킵메이' },
+  { type: 'mixed', x: 920, z: 340, zh: '카오룽 시티', en: '카오룽 시티' },
+  { type: 'mixed', x: -1200, z: -1000, zh: '청사완', en: '청사완' },
+  { type: 'mixed', x: 520, z: -1150, zh: '웡타이신', en: '웡타이신' },
+  { type: 'docks', x: 760, z: 960, zh: '콰이청 부두', en: '콰이청 부두' },
+  { type: 'market', x: -820, z: 900, zh: '조던', en: '조던' },
 ];
 
 // the named district under (x, z), for the HUD and the map
 export function districtSeedAt(x, z) {
-  if (Math.abs(x) > CITY.half + 40 || z < -CITY.half - 40) return { zh: '新界', en: 'OUTER WARDS' };
-  if (z > CITY.harbourZ + 10 && z < CITY.farShoreZ) return { zh: '維多利亞港', en: 'VICTORIA HARBOUR' };
-  if (z >= CITY.farShoreZ) return { zh: '對岸', en: 'FAR SHORE' };
+  if (Math.abs(x) > CITY.half + 40 || z < -CITY.half - 40) return { zh: '신계', en: '외곽 구역' };
+  if (z > CITY.harbourZ + 10 && z < CITY.farShoreZ) return { zh: '빅토리아 항구', en: '빅토리아 항구' };
+  if (z >= CITY.farShoreZ) return { zh: '맞은편 해안', en: '맞은편 해안' };
   if (Math.hypot(x, z) < 330) return SEEDS[3];
   const wx = x + (vnoise(x / 380 + 11, z / 380) - 0.5) * 380;
   const wz = z + (vnoise(x / 380, z / 380 + 7) - 0.5) * 380;
@@ -727,4 +727,4 @@ export function indexBlocks(city) {
     m.get(key).push(blk);
   }
   city.blocksByCell = m;
-}
+      }

@@ -35,8 +35,8 @@ export class Hud {
           <div class="h-spd">0</div>
           <div class="h-unit">KM/H</div>
         </div>
-        <div class="h-shards"><span class="gem"></span>SHARDS <span class="zh">晶片</span><b>0/0</b></div>
-        <div class="h-run hidden"><div class="rn"><span class="zh"></span><span class="en"></span></div><div class="rt">00:00.00</div><div class="rg">GATE <b>0/0</b></div><div class="rd"></div></div>
+        <div class="h-shards"><span class="gem"></span><span class="zh">데이터 샤드</span><b>0/0</b></div>
+        <div class="h-run hidden"><div class="rn"><span class="zh"></span><span class="en"></span></div><div class="rt">00:00.00</div><div class="rg">게이트 <b>0/0</b></div><div class="rd"></div></div>
         <div class="h-toast"></div>
         <div class="h-count hidden"></div>
         <div class="h-radio"></div>
@@ -77,7 +77,7 @@ export class Hud {
   show(on) { this.el.classList.toggle('off', !on); }
 
   setHints(touch) {
-    const items = touch ? [] : [['W S', '油門 THRUST'], ['A D', '轉向 STEER'], ['SPACE C', '升降 LIFT'], ['SHIFT', '加速 BOOST'], ['V', '鏡頭 CAMERA'], ['M', '地圖 MAP'], ['ESC', '選單 MENU']];
+    const items = touch ? [] : [['W S', '가속'], ['A D', '방향'], ['SPACE C', '상승/하강'], ['SHIFT', '부스트'], ['V', '카메라'], ['M', '지도'], ['ESC', '메뉴']];
     this.hints.innerHTML = items.map(([k, t]) => `<span><span class="key">${k}</span>${t}</span>`).join('');
     this.hints.classList.remove('fade');
     clearTimeout(this.hintTimer);
@@ -152,7 +152,7 @@ export class Hud {
     if (Math.abs(fv - (this.last.fv ?? -1)) > 0.003) { this.arcV.setAttribute('d', this.arcPath(fv, 66)); this.arcV.style.opacity = fv > 0.004 ? 1 : 0; this.last.fv = fv; }
     const fb = s.boost;
     if (Math.abs(fb - (this.last.fb ?? -1)) > 0.01) { this.arcB.setAttribute('d', this.arcPath(fb, 58)); this.arcB.style.opacity = fb > 0.01 ? 1 : 0; this.last.fb = fb; }
-    const mode = s.mode === 'air' ? (s.lane ? ['航道', `SKY LANE ${s.lane}`] : ['空中', 'AIRBORNE']) : ['地面', 'STREET'];
+    const mode = s.mode === 'air' ? (s.lane ? ['항로', `항로 ${s.lane}m`] : ['공중', '비행 중']) : ['지상', '도로'];
     if (mode[1] !== this.last.mode) { this.modeZh.textContent = mode[0]; this.modeEn.textContent = mode[1]; this.last.mode = mode[1]; }
     if (s.district && s.district.en !== this.last.district) {
       this.dZh.textContent = s.district.zh; this.dEn.textContent = s.district.en; this.last.district = s.district.en;
@@ -171,9 +171,9 @@ export class Hud {
     g.clearRect(0, 0, W, H);
     const pxPerDeg = W / 120;
     const b = s.bearing;
-    g.font = '500 10px "Oxanium Variable", sans-serif';
+    g.font = '500 10px "Noto Sans KR Variable", "Oxanium Variable", sans-serif';
     g.textAlign = 'center';
-    const names = { 0: '北 N', 45: 'NE', 90: '東 E', 135: 'SE', 180: '南 S', 225: 'SW', 270: '西 W', 315: 'NW' };
+    const names = { 0: '북 N', 45: '북동', 90: '동 E', 135: '남동', 180: '남 S', 225: '남서', 270: '서 W', 315: '북서' };
     for (let d = Math.ceil((b - 62) / 5) * 5; d <= b + 62; d += 5) {
       const x = W / 2 + (d - b) * pxPerDeg;
       const n = ((d % 360) + 360) % 360;
@@ -216,8 +216,8 @@ export class Hud {
       g.beginPath();
       for (let y = Math.floor(c0 / 7) * 7; y < c1; y += 7) { g.moveTo(40, y); g.lineTo(52, y + 8); }
       g.stroke();
-      g.fillStyle = DIM; g.font = '9px "Oxanium Variable"'; g.textAlign = 'left';
-      g.fillText('雲層 CLOUD', 46, Math.max(14, Math.min(H - 6, c1 - 4)));
+      g.fillStyle = DIM; g.font = '9px "Noto Sans KR Variable", "Oxanium Variable"'; g.textAlign = 'left';
+      g.fillText('구름층', 46, Math.max(14, Math.min(H - 6, c1 - 4)));
     }
     // ground under the craft: a line with a short hatched band beneath
     const gy = yOf(s.groundY);
@@ -236,11 +236,11 @@ export class Hud {
       const major = a % 50 === 0;
       g.fillStyle = major ? DIM : FAINT;
       g.fillRect(major ? 22 : 30, y, major ? 16 : 8, 1);
-      if (major) { g.font = '9px "JetBrains Mono Variable"'; g.textAlign = 'right'; g.fillText(a, 19, y + 3); }
+      if (major) { g.font = '9px "Noto Sans KR Variable", "JetBrains Mono Variable"'; g.textAlign = 'right'; g.fillText(a, 19, y + 3); }
     }
     // sky lanes and the pad
-    const marks = [...SKY_ALT.z.map((a) => [a, CYAN, 'N–S']), ...SKY_ALT.x.map((a) => [a, AMBER, 'E–W']), [CITY.zenith.pad, MAG, 'PAD']];
-    g.font = '9px "Oxanium Variable"'; g.textAlign = 'left';
+    const marks = [...SKY_ALT.z.map((a) => [a, CYAN, '남북']), ...SKY_ALT.x.map((a) => [a, AMBER, '동서']), [CITY.zenith.pad, MAG, '착륙장']];
+    g.font = '9px "Noto Sans KR Variable", "Oxanium Variable"'; g.textAlign = 'left';
     for (const [a, col, lab] of marks) {
       const y = yOf(a);
       if (y < -4 || y > H + 4) continue;
@@ -261,11 +261,11 @@ export class Hud {
     g.lineWidth = 1;
     g.beginPath(); g.moveTo(0, cy - 12); g.lineTo(60, cy - 12); g.lineTo(68, cy); g.lineTo(60, cy + 12); g.lineTo(0, cy + 12); g.closePath();
     g.fill(); g.stroke();
-    g.fillStyle = INK; g.font = '500 15px "JetBrains Mono Variable"'; g.textAlign = 'right';
+    g.fillStyle = INK; g.font = '500 15px "Noto Sans KR Variable", "JetBrains Mono Variable"'; g.textAlign = 'right';
     g.fillText(String(Math.max(0, Math.round(alt))).padStart(4, '0'), 56, cy + 5);
-    g.fillStyle = DIM; g.font = '9px "Oxanium Variable"'; g.textAlign = 'left';
-    g.fillText('高度 ALT M', 0, cy - 18);
-    g.fillText(`AGL ${Math.max(0, Math.round(s.alt - s.groundY))}`, 0, cy + 26);
+    g.fillStyle = DIM; g.font = '9px "Noto Sans KR Variable", "Oxanium Variable"'; g.textAlign = 'left';
+    g.fillText('고도 m', 0, cy - 18);
+    g.fillText(`지상고 ${Math.max(0, Math.round(s.alt - s.groundY))}`, 0, cy + 26);
     // vertical speed caret
     const vy = Math.max(-60, Math.min(60, s.vy * 2));
     if (Math.abs(vy) > 1) {
@@ -318,11 +318,11 @@ export class Hud {
     g.lineWidth = 1;
     g.beginPath(); g.arc(W / 2, W / 2, R, 0, Math.PI * 2); g.stroke();
     const na = -Math.PI / 2 + s.heading;
-    g.fillStyle = INK; g.font = '600 10px "Oxanium Variable"'; g.textAlign = 'center';
+    g.fillStyle = INK; g.font = '600 10px "Noto Sans KR Variable", "Oxanium Variable"'; g.textAlign = 'center';
     g.fillText('N', W / 2 + Math.cos(na) * (R - 10), W / 2 + Math.sin(na) * (R - 10) + 3);
     g.fillStyle = CYAN;
     g.beginPath(); g.moveTo(W / 2, W / 2 - 8); g.lineTo(W / 2 + 5, W / 2 + 6); g.lineTo(W / 2, W / 2 + 3); g.lineTo(W / 2 - 5, W / 2 + 6); g.closePath(); g.fill();
-    g.fillStyle = DIM; g.font = '9px "JetBrains Mono Variable"'; g.textAlign = 'right';
+    g.fillStyle = DIM; g.font = '9px "Noto Sans KR Variable", "JetBrains Mono Variable"'; g.textAlign = 'right';
     g.fillText(`${Math.round(range)}M`, W - 8, W - 6);
   }
 }

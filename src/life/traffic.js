@@ -389,4 +389,4 @@ export class Traffic {
     if (hit > 2.5) kite.hit(hit, 'car');
     return hit;
   }
-        }
+}

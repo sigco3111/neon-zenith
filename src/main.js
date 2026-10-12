@@ -50,7 +50,7 @@ function loadSettings() {
 
 const ui = document.getElementById('ui');
 ui.insertAdjacentHTML('beforeend', `<div id="fade"></div><div id="loader"><div class="lw">
-  <div class="lt"><b>NEON ZENITH</b> · 霓虹天頂</div><div class="bar"><i></i></div><div class="st">BOOTING</div></div></div>`);
+  <div class="lt"><b>NEON ZENITH</b> · 네온 제니스</div><div class="bar"><i></i></div><div class="st">시작하는 중</div></div></div>`);
 const loaderBar = ui.querySelector('#loader .bar i'), loaderSt = ui.querySelector('#loader .st');
 function progress(f, text) {
   loaderBar.style.width = `${Math.round(f * 100)}%`;
@@ -60,22 +60,22 @@ function progress(f, text) {
 
 async function loadTextures() {
   const [roadAlbedo, roadNormal, roadRao, walkAlbedo, walkNormal, walkRao, concreteAlbedo, shutterAlbedo, signs, facAlbedo, facMask, facNormal, shopAlbedo, shopMask] = await Promise.all([
-    loadTex('/tex/road_albedo.webp', { srgb: true }),
-    loadTex('/tex/road_normal.webp'),
-    loadTex('/tex/road_rao.webp'),
-    loadTex('/tex/walk_albedo.webp', { srgb: true }),
-    loadTex('/tex/walk_normal.webp'),
-    loadTex('/tex/walk_rao.webp'),
-    loadTex('/tex/concrete_albedo.webp', { srgb: true }),
-    loadTex('/tex/shutter_albedo.webp', { srgb: true }),
-    loadTex('/tex/signs.webp', { srgb: true, repeat: false }),
-    loadArray('/tex/facade_albedo.webp', FAC.size, { srgb: true }),
-    loadArray('/tex/facade_mask.webp', FAC.maskSize),
-    loadArray('/tex/facade_normal.webp', FAC.normalSize),
-    loadTex('/tex/shop_albedo.webp', { srgb: true }),
-    loadTex('/tex/shop_mask.webp'),
+    loadTex(`${import.meta.env.BASE_URL}tex/road_albedo.webp`, { srgb: true }),
+    loadTex(`${import.meta.env.BASE_URL}tex/road_normal.webp`),
+    loadTex(`${import.meta.env.BASE_URL}tex/road_rao.webp`),
+    loadTex(`${import.meta.env.BASE_URL}tex/walk_albedo.webp`, { srgb: true }),
+    loadTex(`${import.meta.env.BASE_URL}tex/walk_normal.webp`),
+    loadTex(`${import.meta.env.BASE_URL}tex/walk_rao.webp`),
+    loadTex(`${import.meta.env.BASE_URL}tex/concrete_albedo.webp`, { srgb: true }),
+    loadTex(`${import.meta.env.BASE_URL}tex/shutter_albedo.webp`, { srgb: true }),
+    loadTex(`${import.meta.env.BASE_URL}tex/signs.webp`, { srgb: true, repeat: false }),
+    loadArray(`${import.meta.env.BASE_URL}tex/facade_albedo.webp`, FAC.size, { srgb: true }),
+    loadArray(`${import.meta.env.BASE_URL}tex/facade_mask.webp`, FAC.maskSize),
+    loadArray(`${import.meta.env.BASE_URL}tex/facade_normal.webp`, FAC.normalSize),
+    loadTex(`${import.meta.env.BASE_URL}tex/shop_albedo.webp`, { srgb: true }),
+    loadTex(`${import.meta.env.BASE_URL}tex/shop_mask.webp`),
   ]);
-  const env = await new HDRLoader().loadAsync('/tex/env_night.hdr');
+  const env = await new HDRLoader().loadAsync(`${import.meta.env.BASE_URL}tex/env_night.hdr`);
   env.mapping = THREE.EquirectangularReflectionMapping;
   // the panorama's lamps peak at ~20000 against a p99.9 of ~47; a smooth pane mirrors such a texel as a white flare,
   // so they are capped (half floats of positive values order like their bits)
@@ -87,6 +87,7 @@ async function loadTextures() {
 }
 
 async function boot() {
+  await document.fonts.load('600 16px "Noto Sans KR Variable"', '네온 제니스 고도 지도');
   const canvas = document.getElementById('gl');
   const webgpu = !!navigator.gpu && !params.has('webgl');
   const renderer = new THREE.WebGPURenderer({ canvas, antialias: false, powerPreference: 'high-performance', reversedDepthBuffer: webgpu, forceWebGL: !webgpu });
@@ -95,7 +96,7 @@ async function boot() {
   renderer.setSize(window.innerWidth, window.innerHeight);
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
   await renderer.init();
-  await progress(0.08, 'LOADING TEXTURES · 載入材質');
+  await progress(0.08, '텍스처 불러오는 중');
 
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(62, window.innerWidth / window.innerHeight, 0.25, 12000);
@@ -107,7 +108,7 @@ async function boot() {
   scene.environmentIntensity = 0.1;
   scene.environmentRotation.y = 1.2;
 
-  await progress(0.3, 'RAISING THE CITY · 生成城市');
+  await progress(0.3, '도시 생성 중');
   const lightmap = buildLightmap(city);
   // inside Temple Street the light at street level is Blender's; the consumers scale this map by ~2.4 against albedo
   lightmap.district = { ground: districtData.ground, uv: groundUV, inside: insideRegion, scale: EXPO / 2.4 };
@@ -145,7 +146,7 @@ async function boot() {
   const sky2 = new SkyTraffic(city);
   scene.add(sky2.group);
 
-  await progress(0.55, 'TRAFFIC AND WEATHER · 交通與天氣');
+  await progress(0.55, '교통과 날씨 준비 중');
   const hemi = new THREE.HemisphereLight(0x3a3060, 0x120a14, 0.35);
   scene.add(hemi);
   const moon = new THREE.DirectionalLight(0x8090c0, 0.25);
@@ -236,7 +237,7 @@ async function boot() {
       if (o.isMesh) o.frustumCulled = false;
       o.visible = true;
     });
-    await progress(0.75, 'COMPILING SHADERS · 編譯著色器');
+    await progress(0.75, '셰이더 컴파일 중');
     // compileAsync builds for the current render target, and the scene is never drawn straight to the canvas: it goes
     // into the post pass, the ground mirror and the car's cube probe. Compiled for the canvas, every one of those
     // variants was built synchronously in the first frames instead (a 0.5–3 s freeze on the title screen).
@@ -254,7 +255,7 @@ async function boot() {
     }
     renderer.setRenderTarget(prevTarget);
     await Promise.all(jobs);
-    await progress(0.95, 'IGNITION · 點火');
+    await progress(0.95, '시동 거는 중');
     ground.updateReflection(renderer, scene, camera, true);
     post.render();
     for (const [o, v, f] of touched) { o.visible = v; o.frustumCulled = f; }
@@ -298,7 +299,7 @@ async function boot() {
   probe.update(renderer, scene, kite.model.position, [kite.model, rain.group], 6);
   renderer.setAnimationLoop(frame);
 
-  await progress(1, 'READY');
+  await progress(1, '준비 완료');
   ui.querySelector('#loader').classList.add('done');
   if (touch) touchUi.show(true);
   const runParam = params.get('run');
@@ -314,6 +315,6 @@ async function boot() {
 
 boot().catch((e) => {
   console.error(e);
-  const msg = !navigator.gpu && /WebGL|context/i.test(String(e)) ? 'This browser could not start WebGL or WebGPU.' : String(e.message || e);
+  const msg = !navigator.gpu && /WebGL|context/i.test(String(e)) ? '이 브라우저에서 WebGL 또는 WebGPU를 시작할 수 없습니다.' : String(e.message || e);
   ui.querySelector('#loader .lw')?.insertAdjacentHTML('beforeend', `<div class="err">${msg}</div>`);
 });

@@ -9,19 +9,19 @@ const bearingOf = (dx, dz) => ((Math.atan2(dx, -dz) * DEG) + 360) % 360;
 const ZERO = { throttle: 0, steer: 0, lift: 0, boost: false };
 
 const RADIO = {
-  liftoff: ['KOWLOON CONTROL · 九龍航管', 'Kite-nine, you are clear to the lanes. Keep left, keep lit.', '九號，航道已開放。靠左，亮燈。'],
-  cloud: ['KOWLOON CONTROL · 九龍航管', 'Cloud base five-two-zero. You are on instruments.', '雲底五二零米，請依儀表飛行。'],
-  above: ['NEON FM 88.1 · 霓虹電台', 'Above the weather tonight? Lucky you. Here is something for the quiet up there.', '在雲上面？幸運兒。'],
-  pad: ['ZENITH PAD · 天頂停機坪', 'Touchdown, one-four-one-eight. Nice flying, Kite-nine.', '著陸確認，一四一八米。'],
-  fast: ['KOWLOON CONTROL · 九龍航管', 'Kite-nine, we read you over four hundred. Ease it off near the lanes.', '九號，時速超過四百，請減速。'],
-  start: ['NEON FM 88.1 · 霓虹電台', 'Rain all night over Kowloon, heavier after midnight. Stay dry, stay out of the lanes if you are not licensed.', '九龍今晚全夜有雨。'],
-  shardsAll: ['NEON FM 88.1 · 霓虹電台', 'Somebody just lit up every shard in the city. We see you.', '全城晶片已集齊。'],
+  liftoff: ['카오룽 관제', '카이트 9호, 항로 진입을 허가합니다. 좌측으로 비행하고 등화를 켜세요.', ''],
+  cloud: ['카오룽 관제', '구름 하단은 520m입니다. 계기 비행으로 전환하세요.', ''],
+  above: ['네온 FM 88.1', '오늘 밤은 구름 위에 계신가요? 운이 좋네요. 고요한 하늘에 어울리는 곡입니다.', ''],
+  pad: ['제니스 착륙장', '착륙 확인, 고도 1,418m. 멋진 비행이었어요, 카이트 9호.', ''],
+  fast: ['카오룽 관제', '카이트 9호, 시속 400km를 넘었습니다. 항로 근처에서는 감속하세요.', ''],
+  start: ['네온 FM 88.1', '카오룽에는 밤새 비가 내리고 자정 이후 더 거세집니다. 비 조심하시고, 면허 없이는 항로에 진입하지 마세요.', ''],
+  shardsAll: ['네온 FM 88.1', '누군가 도시의 모든 샤드를 밝혔네요. 당신을 보고 있어요.', ''],
   district: {
-    market: [['Night market is jammed, watch the minibuses on Temple Street.', '廟街好塞，小心小巴。'], ['Dai pai dong on the corner still open. Of course it is.', '街角大牌檔仲開緊。']],
-    center: [['Glass towers, glass rain. Mind the downdrafts between them.', '大廈之間有下沉氣流。'], ['Admiralty signal boards report all lanes green.', '金鐘航道全線暢通。']],
-    estate: [['Estates on the ridge. Forty floors of windows, every one still lit.', '屋邨四十層，層層有燈。']],
-    mixed: [['Old Kowloon. Low roofs, a lot of signs, a lot of wires.', '舊九龍，招牌多，電線多。']],
-    docks: [['Container cranes on the piers. Lights on, nobody home.', '碼頭吊機，燈火通明。']],
+    market: [['야시장이 붐빕니다. 템플 스트리트의 미니버스를 조심하세요.', ''], ['모퉁이 노점은 아직 영업 중이네요. 역시 그렇죠.', '']],
+    center: [['유리 빌딩, 유리 같은 빗줄기. 빌딩 사이 하강 기류를 조심하세요.', ''], ['애드미럴티 안내판에 따르면 모든 항로가 원활합니다.', '']],
+    estate: [['능선 위 주거 단지. 40층 창문마다 불이 켜져 있습니다.', '']],
+    mixed: [['옛 카오룽. 낮은 지붕, 수많은 간판과 전선.', '']],
+    docks: [['부두의 컨테이너 크레인. 불은 켜져 있지만 아무도 없네요.', '']],
   },
 };
 
@@ -168,7 +168,7 @@ export class Game {
       if (n !== this.lastCount) {
         this.lastCount = n;
         if (n > 0) { this.hud.countdown(n); this.sound.beep(false); }
-        else { this.hud.countdown('GO'); this.sound.beep(true); }
+        else { this.hud.countdown('출발'); this.sound.beep(true); }
       }
       if (this.run.count <= 0) { this.state = 'run'; this.hud.countdown(null); }
       c = ZERO;
@@ -211,7 +211,7 @@ export class Game {
     else if (a === 'camera') this.rig.cycle();
     else if (a === 'reset') this.reset();
     else if (a === 'horn') this.sound.horn();
-    else if (a === 'radio') { const on = this.sound.toggleRadio(); this.hud.toast(on ? '電台開' : '電台關', on ? 'RADIO ON · NEON FM 88.1' : 'RADIO OFF'); }
+    else if (a === 'radio') { const on = this.sound.toggleRadio(); this.hud.toast(on ? '라디오 켜짐' : '라디오 꺼짐', on ? '네온 FM 88.1 청취 중' : '라디오 꺼짐'); }
     else if (a === 'confirm' && this.nearRun !== null && this.nearRun !== undefined && !this.run) this.startRun(this.nearRun);
   }
 
@@ -254,9 +254,9 @@ export class Game {
         this.sound.shard();
         const n = this.collected.size, N = this.shards.length;
         this.hud.setShards(n, N);
-        this.hud.toast('晶片', `SHARD ${n} / ${N}`, 'mag');
+        this.hud.toast('샤드', `샤드 ${n} / ${N}`, 'mag');
         try { localStorage.setItem('nz.shards', JSON.stringify([...this.collected])); } catch {}
-        if (n === N) { this.hud.toast('全城點亮', 'THE CITY IS LIT', 'big mag'); this.radio(RADIO.shardsAll, true); }
+        if (n === N) { this.hud.toast('모든 샤드 수집 완료', '도시 전체가 빛납니다', 'big mag'); this.radio(RADIO.shardsAll, true); }
       }
     }
   }
@@ -287,7 +287,7 @@ export class Game {
       const pool = RADIO.district[d.type];
       if (pool && this.seen.size > 1 && Math.random() < 0.6) {
         const [en, zh] = pool[Math.floor(Math.random() * pool.length)];
-        this.radio(['NEON FM 88.1 · 霓虹電台', en, zh]);
+        this.radio(['네온 FM 88.1', en, zh]);
       }
     }
     // run beacons: drive into one to be offered the run
@@ -297,7 +297,7 @@ export class Game {
         if (Math.hypot(k.pos.x - r.start.x, k.pos.z - r.start.z) < 12 && Math.abs(k.pos.y - r.start.y) < 10) this.nearRun = i;
       });
     }
-    this.hud.prompt(this.nearRun !== null ? `<span class="key">${this.touch ? 'TAP' : 'ENTER'}</span>開始<span class="zh">${this.runs[this.nearRun].zh}</span>START ${this.runs[this.nearRun].en}` : null);
+    this.hud.prompt(this.nearRun !== null ? `<span class="key">${this.touch ? '터치' : 'ENTER'}</span>시작<span class="zh">${this.runs[this.nearRun].zh}</span>시작 ${this.runs[this.nearRun].en}` : null);
   }
 
   updateHud(dt, c) {
@@ -323,7 +323,7 @@ export class Game {
     if (this.waypoint) {
       mapMarkers.push({ x: this.waypoint.x, z: this.waypoint.z, color: '#3be8ff', shape: 'ring', pin: true });
       markers.push({ bearing: bearingOf(this.waypoint.x - k.pos.x, this.waypoint.z - k.pos.z), color: '#3be8ff' });
-      if (Math.hypot(this.waypoint.x - k.pos.x, this.waypoint.z - k.pos.z) < 25) { this.waypoint = null; this.hud.toast('', 'WAYPOINT REACHED · 已到達', 'cyan'); }
+      if (Math.hypot(this.waypoint.x - k.pos.x, this.waypoint.z - k.pos.z) < 25) { this.waypoint = null; this.hud.toast('', '목적지에 도착했습니다', 'cyan'); }
     }
     this.shards.forEach((s, i) => {
       if (!this.collected.has(i) && Math.hypot(s.x - k.pos.x, s.z - k.pos.z) < 160) mapMarkers.push({ x: s.x, z: s.z, color: '#ff3df2', shape: 'gem' });

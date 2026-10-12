@@ -25,17 +25,17 @@ export async function loadDistrict(renderer, { small = false } = {}) {
   ktx2 ??= new KTX2Loader().detectSupport(renderer);
   const gltf = new GLTFLoader().setMeshoptDecoder(MeshoptDecoder).setKTX2Loader(ktx2);
   const [scene, props, lm, ground] = await Promise.all([
-    gltf.loadAsync('/district/district.glb'),
-    gltf.loadAsync('/district/props.glb'),
-    ktx2.loadAsync(small ? '/district/lightmap_2k.ktx2' : '/district/lightmap.ktx2'),
-    ktx2.loadAsync('/district/ground.ktx2'),
+    gltf.loadAsync(`${import.meta.env.BASE_URL}district/district.glb`),
+    gltf.loadAsync(`${import.meta.env.BASE_URL}district/props.glb`),
+    ktx2.loadAsync(small ? `${import.meta.env.BASE_URL}district/lightmap_2k.ktx2` : `${import.meta.env.BASE_URL}district/lightmap.ktx2`),
+    ktx2.loadAsync(`${import.meta.env.BASE_URL}district/ground.ktx2`),
   ]);
   for (const t of [lm, ground]) { t.colorSpace = THREE.LinearSRGBColorSpace; t.minFilter = THREE.LinearMipmapLinearFilter; t.magFilter = THREE.LinearFilter; }
   const ids = new Set();
   scene.scene.traverse((o) => { if (o.isMesh && o.material.userData.nz_tex) ids.add(o.material.userData.nz_tex); });
   const ph = {};
   await Promise.all([...ids].map(async (id) => {
-    const [diff, nor, arm] = await Promise.all(['diff', 'nor', 'arm'].map((k) => ktx2.loadAsync(`/district/ph/${id}_${k}${small && k !== 'arm' ? '_1k' : ''}.ktx2`)));
+    const [diff, nor, arm] = await Promise.all(['diff', 'nor', 'arm'].map((k) => ktx2.loadAsync(`${import.meta.env.BASE_URL}district/ph/${id}_${k}${small && k !== 'arm' ? '_1k' : ''}.ktx2`)));
     for (const t of [nor, arm]) t.colorSpace = THREE.NoColorSpace;
     for (const t of [diff, nor, arm]) { t.wrapS = t.wrapT = THREE.RepeatWrapping; t.anisotropy = 8; }
     ph[id] = { diff, nor, arm };

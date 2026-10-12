@@ -8,10 +8,10 @@ import { U } from '../core/shared.js';
 import { chunkedInstances } from './instancing.js';
 import { hash12 } from '../tsl/util.js';
 
-const HEI = "'Chiron Hei HK Variable', 'PingFang HK', sans-serif";
-const SUNG = "'Chiron Sung HK Variable', 'Songti TC', serif";
-const OX = "'Oxanium Variable', sans-serif";
-const MONO = "'JetBrains Mono Variable', monospace";
+const HEI = "'Noto Sans KR Variable', 'Chiron Hei HK Variable', 'PingFang HK', sans-serif";
+const SUNG = "'Noto Sans KR Variable', 'Chiron Sung HK Variable', 'Songti TC', serif";
+const OX = "'Noto Sans KR Variable', 'Oxanium Variable', sans-serif";
+const MONO = "'Noto Sans KR Variable', 'JetBrains Mono Variable', monospace";
 
 // helpers on a 2D context
 function grad(g, x0, y0, x1, y1, stops) {
@@ -51,10 +51,10 @@ const ADS = [
     g.fillStyle = '#07070a'; g.fillRect(0, 0, W, H);
     g.strokeStyle = 'rgba(255,40,70,0.35)'; g.lineWidth = s * 0.004;
     for (let r = 1; r < 7; r++) { g.beginPath(); g.arc(W * (tall ? 0.5 : 0.78), H * (tall ? 0.7 : 0.5), s * 0.09 * r, 0, Math.PI * 2); g.stroke(); }
-    if (tall) vtext(g, '義體', W * 0.5, H * 0.2, s * 0.62, `900 SIZEpx ${HEI}`, '#ff2846');
-    else text(g, '義體', W * 0.32, H * 0.45, `900 ${s * 0.56}px ${HEI}`, '#ff2846');
-    text(g, 'CHROME CLINIC', tall ? W * 0.5 : W * 0.32, tall ? H * 0.86 : H * 0.84, `700 ${s * 0.085}px ${OX}`, '#f4f4f6', { spacing: s * 0.02, maxW: (tall ? W : W * 0.55) * 0.9 });
-    text(g, '24H · 無痛升級 · 分期付款', tall ? W * 0.5 : W * 0.32, tall ? H * 0.92 : H * 0.94, `500 ${s * 0.05}px ${HEI}`, '#ff8090', { maxW: W * 0.9 });
+    if (tall) vtext(g, '의체', W * 0.5, H * 0.2, s * 0.62, `900 SIZEpx ${HEI}`, '#ff2846');
+    else text(g, '의체', W * 0.32, H * 0.45, `900 ${s * 0.56}px ${HEI}`, '#ff2846');
+    text(g, '크롬 클리닉', tall ? W * 0.5 : W * 0.32, tall ? H * 0.86 : H * 0.84, `700 ${s * 0.085}px ${OX}`, '#f4f4f6', { spacing: s * 0.02, maxW: (tall ? W : W * 0.55) * 0.9 });
+    text(g, '24시간 · 무통 업그레이드 · 할부 가능', tall ? W * 0.5 : W * 0.32, tall ? H * 0.92 : H * 0.94, `500 ${s * 0.05}px ${HEI}`, '#ff8090', { maxW: W * 0.9 });
   },
   // energy drink
   (g, W, H, tall, s) => {
@@ -66,27 +66,27 @@ const ADS = [
     g.fillStyle = '#c6ff1a'; g.fillRect(-cw / 2, -ch * 0.08, cw, ch * 0.05);
     g.beginPath(); g.moveTo(cw * 0.08, -ch * 0.32); g.lineTo(-cw * 0.2, ch * 0.04); g.lineTo(cw * 0.02, ch * 0.04); g.lineTo(-cw * 0.1, ch * 0.32); g.lineTo(cw * 0.22, -ch * 0.06); g.lineTo(0, -ch * 0.06); g.closePath(); g.fill();
     g.restore();
-    text(g, 'VOLT', W * (tall ? 0.5 : 0.28), H * (tall ? 0.12 : 0.42), `italic 800 ${s * (tall ? 0.42 : 0.4)}px ${OX}`, '#0b0b0b', { maxW: (tall ? W : W * 0.5) * 0.94 });
-    text(g, '雷霆能量', W * (tall ? 0.5 : 0.28), H * (tall ? 0.9 : 0.78), `900 ${s * 0.12}px ${HEI}`, '#0b0b0b', { spacing: s * 0.03 });
+    text(g, '볼트', W * (tall ? 0.5 : 0.28), H * (tall ? 0.12 : 0.42), `italic 800 ${s * (tall ? 0.42 : 0.4)}px ${OX}`, '#0b0b0b', { maxW: (tall ? W : W * 0.5) * 0.94 });
+    text(g, '번개의 에너지', W * (tall ? 0.5 : 0.28), H * (tall ? 0.9 : 0.78), `900 ${s * 0.12}px ${HEI}`, '#0b0b0b', { spacing: s * 0.03 });
   },
   // bank
   (g, W, H, tall, s) => {
     g.fillStyle = grad(g, 0, 0, 0, H, [[0, '#0a1430'], [1, '#02040c']]); g.fillRect(0, 0, W, H);
     g.strokeStyle = 'rgba(232,196,110,0.55)'; g.lineWidth = s * 0.006;
     for (let r = 0; r < 9; r++) { g.beginPath(); g.arc(W * 0.5, tall ? H * 0.32 : H * 1.25, s * (0.12 + r * 0.075), Math.PI, 0); g.stroke(); }
-    if (tall) vtext(g, '天頂銀行', W * 0.5, H * 0.5, s * 0.2, `700 SIZEpx ${SUNG}`, '#e8c46e', 1.12);
-    else text(g, '天頂銀行', W * 0.5, H * 0.42, `700 ${s * 0.3}px ${SUNG}`, '#e8c46e', { spacing: s * 0.05 });
-    text(g, 'ZENITH BANK', W * 0.5, tall ? H * 0.42 : H * 0.7, `600 ${s * 0.07}px ${OX}`, '#f3e3b8', { spacing: s * 0.04 });
-    text(g, 'TRUST THE ALTITUDE', W * 0.5, tall ? H * 0.96 : H * 0.86, `400 ${s * 0.04}px ${OX}`, '#9aa4c4', { spacing: s * 0.03 });
+    if (tall) vtext(g, '제니스은행', W * 0.5, H * 0.5, s * 0.2, `700 SIZEpx ${SUNG}`, '#e8c46e', 1.12);
+    else text(g, '제니스은행', W * 0.5, H * 0.42, `700 ${s * 0.3}px ${SUNG}`, '#e8c46e', { spacing: s * 0.05 });
+    text(g, '제니스 은행', W * 0.5, tall ? H * 0.42 : H * 0.7, `600 ${s * 0.07}px ${OX}`, '#f3e3b8', { spacing: s * 0.04 });
+    text(g, '높이를 믿으세요', W * 0.5, tall ? H * 0.96 : H * 0.86, `400 ${s * 0.04}px ${OX}`, '#9aa4c4', { spacing: s * 0.03 });
   },
   // neural link
   (g, W, H, tall, s) => {
     g.fillStyle = grad(g, 0, 0, W, H, [[0, '#ff2fa6'], [0.55, '#6a1cff'], [1, '#12043a']]); g.fillRect(0, 0, W, H);
     g.strokeStyle = 'rgba(255,255,255,0.28)'; g.lineWidth = s * 0.003;
     for (let r = 1; r < 22; r++) { g.beginPath(); g.ellipse(W * 0.5, H * (tall ? 0.38 : 0.5), s * 0.03 * r, s * 0.03 * r * 0.55, 0, 0, Math.PI * 2); g.stroke(); }
-    text(g, 'SYNAPSE', W * 0.5, H * (tall ? 0.7 : 0.5), `200 ${s * 0.16}px ${OX}`, '#ffffff', { spacing: s * 0.05, maxW: W * 0.92 });
-    text(g, '感知一切', W * 0.5, H * (tall ? 0.8 : 0.72), `700 ${s * 0.1}px ${HEI}`, '#ffe0f4', { spacing: s * 0.06 });
-    text(g, 'FEEL EVERYTHING', W * 0.5, H * (tall ? 0.86 : 0.84), `500 ${s * 0.04}px ${OX}`, '#ffd0ef', { spacing: s * 0.05 });
+    text(g, '시냅스', W * 0.5, H * (tall ? 0.7 : 0.5), `200 ${s * 0.16}px ${OX}`, '#ffffff', { spacing: s * 0.05, maxW: W * 0.92 });
+    text(g, '모든 것을 느끼다', W * 0.5, H * (tall ? 0.8 : 0.72), `700 ${s * 0.1}px ${HEI}`, '#ffe0f4', { spacing: s * 0.06 });
+    text(g, '모든 감각을 깨우세요', W * 0.5, H * (tall ? 0.86 : 0.84), `500 ${s * 0.04}px ${OX}`, '#ffd0ef', { spacing: s * 0.05 });
   },
   // noodles
   (g, W, H, tall, s) => {
@@ -94,8 +94,8 @@ const ADS = [
     g.fillStyle = '#ffd23f'; g.beginPath(); g.arc(W * (tall ? 0.5 : 0.72), H * (tall ? 0.62 : 0.66), s * 0.34, 0, Math.PI); g.fill();
     g.strokeStyle = 'rgba(255,255,255,0.75)'; g.lineWidth = s * 0.012; g.lineCap = 'round';
     for (let i = -1; i <= 1; i++) { const cx = W * (tall ? 0.5 : 0.72) + i * s * 0.12; g.beginPath(); g.moveTo(cx, H * (tall ? 0.56 : 0.56)); g.bezierCurveTo(cx - s * 0.05, H * 0.46, cx + s * 0.05, H * 0.4, cx, H * (tall ? 0.36 : 0.22)); g.stroke(); }
-    text(g, '麵', W * (tall ? 0.5 : 0.25), H * (tall ? 0.2 : 0.48), `900 ${s * (tall ? 0.6 : 0.7)}px ${SUNG}`, '#ffffff');
-    text(g, '牛肉麵 $28', W * (tall ? 0.5 : 0.72), H * (tall ? 0.88 : 0.9), `700 ${s * 0.09}px ${HEI}`, '#2a0a00');
+    text(g, '면', W * (tall ? 0.5 : 0.25), H * (tall ? 0.2 : 0.48), `900 ${s * (tall ? 0.6 : 0.7)}px ${SUNG}`, '#ffffff');
+    text(g, '소고기 국수 $28', W * (tall ? 0.5 : 0.72), H * (tall ? 0.88 : 0.9), `700 ${s * 0.09}px ${HEI}`, '#2a0a00');
   },
   // flying cars
   (g, W, H, tall, s) => {
@@ -107,8 +107,8 @@ const ADS = [
       g.beginPath(); g.moveTo(x - s * 0.22, y + s * 0.06); g.lineTo(x, y - s * 0.02); g.lineTo(x + s * 0.22, y + s * 0.06); g.lineTo(x + s * 0.22, y + s * 0.1); g.lineTo(x, y + s * 0.02); g.lineTo(x - s * 0.22, y + s * 0.1); g.fill();
     }
     g.globalAlpha = 1;
-    text(g, 'NOVA AERO', W * (tall ? 0.5 : 0.66), H * (tall ? 0.72 : 0.42), `800 ${s * 0.12}px ${OX}`, '#ffffff', { spacing: s * 0.02, maxW: (tall ? W : W * 0.6) * 0.92 });
-    text(g, '新星飛行 · 直航月台', W * (tall ? 0.5 : 0.66), H * (tall ? 0.8 : 0.66), `600 ${s * 0.065}px ${HEI}`, '#dff8ff', { maxW: (tall ? W : W * 0.6) * 0.92 });
+    text(g, '노바 에어로', W * (tall ? 0.5 : 0.66), H * (tall ? 0.72 : 0.42), `800 ${s * 0.12}px ${OX}`, '#ffffff', { spacing: s * 0.02, maxW: (tall ? W : W * 0.6) * 0.92 });
+    text(g, '노바 비행 · 승강장 직항', W * (tall ? 0.5 : 0.66), H * (tall ? 0.8 : 0.66), `600 ${s * 0.065}px ${HEI}`, '#dff8ff', { maxW: (tall ? W : W * 0.6) * 0.92 });
   },
   // dim sum
   (g, W, H, tall, s) => {
@@ -120,8 +120,8 @@ const ADS = [
       g.beginPath(); g.arc(cx, cy, s * 0.085, 0, Math.PI * 2); g.stroke();
       g.beginPath(); g.arc(cx, cy, s * 0.05, 0, Math.PI * 2); g.stroke();
     }
-    text(g, '點心', W * 0.5, H * (tall ? 0.22 : 0.36), `900 ${s * (tall ? 0.42 : 0.42)}px ${SUNG}`, '#ffcf4d', { spacing: s * 0.04 });
-    text(g, 'DIM SUM 24/7', W * 0.5, H * (tall ? 0.4 : 0.58), `700 ${s * 0.07}px ${OX}`, '#fff3cf', { spacing: s * 0.03 });
+    text(g, '딤섬', W * 0.5, H * (tall ? 0.22 : 0.36), `900 ${s * (tall ? 0.42 : 0.42)}px ${SUNG}`, '#ffcf4d', { spacing: s * 0.04 });
+    text(g, '딤섬 · 연중무휴', W * 0.5, H * (tall ? 0.4 : 0.58), `700 ${s * 0.07}px ${OX}`, '#fff3cf', { spacing: s * 0.03 });
   },
   // manufacturing corp
   (g, W, H, tall, s) => {
@@ -130,26 +130,26 @@ const ADS = [
     lines(g, W, H, 'rgba(0,0,0,0.12)', Math.round(H / (s * 0.08)));
     g.fillStyle = '#e1001a'; g.fillRect(W * (tall ? 0.18 : 0.06), H * (tall ? 0.1 : 0.18), s * 0.32, s * 0.32);
     g.fillStyle = '#ecebe6'; g.fillRect(W * (tall ? 0.18 : 0.06) + s * 0.1, H * (tall ? 0.1 : 0.18) + s * 0.1, s * 0.12, s * 0.22);
-    text(g, 'KAIZEN-DYNE', tall ? W * 0.5 : W * 0.62, H * (tall ? 0.56 : 0.4), `800 ${s * 0.1}px ${OX}`, '#111', { maxW: (tall ? W : W * 0.62) * 0.92 });
-    text(g, '明日製造', tall ? W * 0.5 : W * 0.62, H * (tall ? 0.66 : 0.62), `700 ${s * 0.11}px ${HEI}`, '#111', { spacing: s * 0.04 });
-    text(g, 'BUILD TOMORROW', tall ? W * 0.5 : W * 0.62, H * (tall ? 0.92 : 0.82), `500 ${s * 0.045}px ${MONO}`, '#e1001a', { spacing: s * 0.02 });
+    text(g, '카이젠다인', tall ? W * 0.5 : W * 0.62, H * (tall ? 0.56 : 0.4), `800 ${s * 0.1}px ${OX}`, '#111', { maxW: (tall ? W : W * 0.62) * 0.92 });
+    text(g, '내일의 제조', tall ? W * 0.5 : W * 0.62, H * (tall ? 0.66 : 0.62), `700 ${s * 0.11}px ${HEI}`, '#111', { spacing: s * 0.04 });
+    text(g, '내일을 만듭니다', tall ? W * 0.5 : W * 0.62, H * (tall ? 0.92 : 0.82), `500 ${s * 0.045}px ${MONO}`, '#e1001a', { spacing: s * 0.02 });
   },
   // pharmacy
   (g, W, H, tall, s) => {
     g.fillStyle = '#f3fbf5'; g.fillRect(0, 0, W, H);
     const cx = W * (tall ? 0.5 : 0.22), cy = H * (tall ? 0.32 : 0.5), a = s * 0.12;
     g.fillStyle = '#00b86b'; g.fillRect(cx - a, cy - a * 3, a * 2, a * 6); g.fillRect(cx - a * 3, cy - a, a * 6, a * 2);
-    text(g, '藥房', W * (tall ? 0.5 : 0.64), H * (tall ? 0.7 : 0.42), `900 ${s * 0.3}px ${HEI}`, '#00553a', { spacing: s * 0.05 });
-    text(g, 'PHARMACY · 24H', W * (tall ? 0.5 : 0.64), H * (tall ? 0.84 : 0.76), `700 ${s * 0.06}px ${OX}`, '#00553a', { spacing: s * 0.02, maxW: (tall ? W : W * 0.6) * 0.92 });
+    text(g, '약국', W * (tall ? 0.5 : 0.64), H * (tall ? 0.7 : 0.42), `900 ${s * 0.3}px ${HEI}`, '#00553a', { spacing: s * 0.05 });
+    text(g, '약국 · 24시간', W * (tall ? 0.5 : 0.64), H * (tall ? 0.84 : 0.76), `700 ${s * 0.06}px ${OX}`, '#00553a', { spacing: s * 0.02, maxW: (tall ? W : W * 0.6) * 0.92 });
   },
   // arcade
   (g, W, H, tall, s) => {
     g.fillStyle = '#16052e'; g.fillRect(0, 0, W, H);
     const p = s * 0.03;
     for (let i = 0; i < 160; i++) { const r = Math.sin(i * 12.9898) * 43758.5453; const fx = r - Math.floor(r), fy = (r * 7.13) % 1; g.fillStyle = i % 3 ? '#ff4fd8' : '#4fe9ff'; g.fillRect(Math.floor((fx * W) / p) * p, Math.floor((Math.abs(fy) * H) / p) * p, p, p); }
-    text(g, 'ARCADE', W * 0.5, H * (tall ? 0.4 : 0.42), `800 ${s * (tall ? 0.2 : 0.24)}px ${MONO}`, '#fff36b', { spacing: s * 0.02, maxW: W * 0.92 });
-    text(g, '遊戲機中心', W * 0.5, H * (tall ? 0.58 : 0.72), `900 ${s * 0.11}px ${HEI}`, '#ffffff', { spacing: s * 0.03, maxW: W * 0.92 });
-    text(g, 'INSERT COIN', W * 0.5, H * (tall ? 0.9 : 0.9), `500 ${s * 0.045}px ${MONO}`, '#ff4fd8', { spacing: s * 0.04 });
+    text(g, '아케이드', W * 0.5, H * (tall ? 0.4 : 0.42), `800 ${s * (tall ? 0.2 : 0.24)}px ${MONO}`, '#fff36b', { spacing: s * 0.02, maxW: W * 0.92 });
+    text(g, '게임 센터', W * 0.5, H * (tall ? 0.58 : 0.72), `900 ${s * 0.11}px ${HEI}`, '#ffffff', { spacing: s * 0.03, maxW: W * 0.92 });
+    text(g, '동전을 넣으세요', W * 0.5, H * (tall ? 0.9 : 0.9), `500 ${s * 0.045}px ${MONO}`, '#ff4fd8', { spacing: s * 0.04 });
   },
   // the game itself
   (g, W, H, tall, s) => {
@@ -157,9 +157,9 @@ const ADS = [
     g.strokeStyle = 'rgba(255,61,242,0.9)'; g.lineWidth = s * 0.006;
     const bx = W * (tall ? 0.5 : 0.82);
     g.beginPath(); g.moveTo(bx - s * 0.03, H); g.lineTo(bx - s * 0.015, H * 0.08); g.lineTo(bx, 0); g.lineTo(bx + s * 0.015, H * 0.08); g.lineTo(bx + s * 0.03, H); g.stroke();
-    if (tall) vtext(g, '霓虹天頂', W * 0.5, H * 0.2, s * 0.2, `700 SIZEpx ${SUNG}`, '#ffffff', 1.1);
-    else text(g, '霓虹天頂', W * 0.4, H * 0.42, `700 ${s * 0.28}px ${SUNG}`, '#ffffff', { spacing: s * 0.04 });
-    text(g, 'NEON ZENITH · 1418 M', tall ? W * 0.5 : W * 0.4, H * (tall ? 0.94 : 0.74), `400 ${s * 0.05}px ${OX}`, '#ffc8f8', { spacing: s * 0.05, maxW: W * 0.9 });
+    if (tall) vtext(g, '네온 제니스', W * 0.5, H * 0.2, s * 0.2, `700 SIZEpx ${SUNG}`, '#ffffff', 1.1);
+    else text(g, '네온 제니스', W * 0.4, H * 0.42, `700 ${s * 0.28}px ${SUNG}`, '#ffffff', { spacing: s * 0.04 });
+    text(g, '네온 제니스 · 1418 m', tall ? W * 0.5 : W * 0.4, H * (tall ? 0.94 : 0.74), `400 ${s * 0.05}px ${OX}`, '#ffc8f8', { spacing: s * 0.05, maxW: W * 0.9 });
   },
   // night market
   (g, W, H, tall, s) => {
@@ -167,47 +167,47 @@ const ADS = [
     g.fillStyle = '#111';
     const st = s * 0.12;
     for (let x = -H; x < W + H; x += st * 2) { g.beginPath(); g.moveTo(x, tall ? H : H); g.lineTo(x + st, H); g.lineTo(x + st + H * 0.18, H * 0.82); g.lineTo(x + H * 0.18, H * 0.82); g.fill(); }
-    text(g, '夜市', W * 0.5, H * (tall ? 0.3 : 0.38), `900 ${s * (tall ? 0.48 : 0.42)}px ${HEI}`, '#111', { spacing: s * 0.04 });
-    text(g, 'TEMPLE ST NIGHT MARKET', W * 0.5, H * (tall ? 0.62 : 0.68), `700 ${s * 0.05}px ${OX}`, '#111', { spacing: s * 0.02, maxW: W * 0.92 });
+    text(g, '야시장', W * 0.5, H * (tall ? 0.3 : 0.38), `900 ${s * (tall ? 0.48 : 0.42)}px ${HEI}`, '#111', { spacing: s * 0.04 });
+    text(g, '템플 스트리트 야시장', W * 0.5, H * (tall ? 0.62 : 0.68), `700 ${s * 0.05}px ${OX}`, '#111', { spacing: s * 0.02, maxW: W * 0.92 });
   },
   // clouds real estate
   (g, W, H, tall, s) => {
     g.fillStyle = grad(g, 0, 0, 0, H, [[0, '#0d1b2a'], [0.5, '#415a77'], [1, '#e0e1dd']]); g.fillRect(0, 0, W, H);
     g.fillStyle = 'rgba(255,255,255,0.5)';
     for (let i = 0; i < 6; i++) { g.beginPath(); g.ellipse(W * ((i * 0.37) % 1), H * (0.62 + (i % 3) * 0.08), s * 0.4, s * 0.05, 0, 0, Math.PI * 2); g.fill(); }
-    text(g, '雲上之家', W * 0.5, H * (tall ? 0.24 : 0.3), `700 ${s * 0.16}px ${SUNG}`, '#ffffff', { spacing: s * 0.06 });
-    text(g, 'ORBITAL RESIDENCES', W * 0.5, H * (tall ? 0.33 : 0.48), `500 ${s * 0.05}px ${OX}`, '#dbe7ff', { spacing: s * 0.05, maxW: W * 0.92 });
-    text(g, 'YOUR HOME ABOVE THE RAIN', W * 0.5, H * (tall ? 0.92 : 0.9), `400 ${s * 0.035}px ${OX}`, '#1b263b', { spacing: s * 0.04, maxW: W * 0.92 });
+    text(g, '구름위의집', W * 0.5, H * (tall ? 0.24 : 0.3), `700 ${s * 0.16}px ${SUNG}`, '#ffffff', { spacing: s * 0.06 });
+    text(g, '오비탈 레지던스', W * 0.5, H * (tall ? 0.33 : 0.48), `500 ${s * 0.05}px ${OX}`, '#dbe7ff', { spacing: s * 0.05, maxW: W * 0.92 });
+    text(g, '비보다 높은 곳에 당신의 집', W * 0.5, H * (tall ? 0.92 : 0.9), `400 ${s * 0.035}px ${OX}`, '#1b263b', { spacing: s * 0.04, maxW: W * 0.92 });
   },
   // tea
   (g, W, H, tall, s) => {
     g.fillStyle = '#0e3b2a'; g.fillRect(0, 0, W, H);
     g.fillStyle = '#7ed957'; g.beginPath(); g.ellipse(W * (tall ? 0.5 : 0.75), H * (tall ? 0.36 : 0.5), s * 0.16, s * 0.3, 0.6, 0, Math.PI * 2); g.fill();
     g.strokeStyle = '#0e3b2a'; g.lineWidth = s * 0.008; g.beginPath(); g.moveTo(W * (tall ? 0.5 : 0.75) - s * 0.14, H * (tall ? 0.36 : 0.5) + s * 0.2); g.lineTo(W * (tall ? 0.5 : 0.75) + s * 0.14, H * (tall ? 0.36 : 0.5) - s * 0.2); g.stroke();
-    text(g, '綠茶', W * (tall ? 0.5 : 0.32), H * (tall ? 0.74 : 0.42), `900 ${s * 0.26}px ${SUNG}`, '#e9ffd9', { spacing: s * 0.04 });
-    text(g, 'MATCHA · 冷泡', W * (tall ? 0.5 : 0.32), H * (tall ? 0.88 : 0.74), `600 ${s * 0.06}px ${HEI}`, '#7ed957', { spacing: s * 0.03 });
+    text(g, '녹차', W * (tall ? 0.5 : 0.32), H * (tall ? 0.74 : 0.42), `900 ${s * 0.26}px ${SUNG}`, '#e9ffd9', { spacing: s * 0.04 });
+    text(g, '말차 · 콜드브루', W * (tall ? 0.5 : 0.32), H * (tall ? 0.88 : 0.74), `600 ${s * 0.06}px ${HEI}`, '#7ed957', { spacing: s * 0.03 });
   },
   // concert
   (g, W, H, tall, s) => {
     g.fillStyle = '#000'; g.fillRect(0, 0, W, H);
     const cx = W * 0.5, cy = H * (tall ? 0.4 : 0.5);
     for (let r = 12; r > 0; r--) { g.fillStyle = `hsl(${280 + r * 8}, 100%, ${10 + r * 4}%)`; g.beginPath(); g.arc(cx, cy, s * 0.04 * r, 0, Math.PI * 2); g.fill(); }
-    text(g, 'MIKA', cx, cy, `800 ${s * 0.22}px ${OX}`, '#ffffff', { spacing: s * 0.04 });
-    text(g, '演唱會 LIVE', W * 0.5, H * (tall ? 0.78 : 0.86), `700 ${s * 0.08}px ${HEI}`, '#ffd1ff', { spacing: s * 0.03 });
-    text(g, '03.14 · ZENITH ARENA', W * 0.5, H * (tall ? 0.86 : 0.95), `400 ${s * 0.04}px ${MONO}`, '#c9a0ff', { spacing: s * 0.03, maxW: W * 0.92 });
+    text(g, '미카', cx, cy, `800 ${s * 0.22}px ${OX}`, '#ffffff', { spacing: s * 0.04 });
+    text(g, '라이브 콘서트', W * 0.5, H * (tall ? 0.78 : 0.86), `700 ${s * 0.08}px ${HEI}`, '#ffd1ff', { spacing: s * 0.03 });
+    text(g, '03.14 · 제니스 아레나', W * 0.5, H * (tall ? 0.86 : 0.95), `400 ${s * 0.04}px ${MONO}`, '#c9a0ff', { spacing: s * 0.03, maxW: W * 0.92 });
   },
   // mahjong
   (g, W, H, tall, s) => {
     g.fillStyle = '#04563c'; g.fillRect(0, 0, W, H);
     const tw = s * 0.16, th = s * 0.22;
-    const tiles = ['中', '發', '白'];
+    const tiles = ['중', '발', '백'];
     tiles.forEach((t, i) => {
       const x = tall ? W * 0.5 - tw / 2 : W * (0.08 + i * 0.13), y = tall ? H * (0.08 + i * 0.13) : H * 0.3;
       g.fillStyle = '#f7f2e4'; g.beginPath(); g.roundRect(x, y, tw, th, tw * 0.12); g.fill();
       text(g, t, x + tw / 2, y + th / 2, `900 ${tw * 0.7}px ${SUNG}`, i === 0 ? '#c8102e' : i === 1 ? '#00843d' : '#1d4ed8');
     });
-    text(g, '麻雀館', W * (tall ? 0.5 : 0.7), H * (tall ? 0.7 : 0.42), `900 ${s * 0.18}px ${HEI}`, '#ffd76a', { spacing: s * 0.04 });
-    text(g, 'MAHJONG · 通宵', W * (tall ? 0.5 : 0.7), H * (tall ? 0.82 : 0.7), `600 ${s * 0.06}px ${OX}`, '#e8ffe9', { spacing: s * 0.03, maxW: (tall ? W : W * 0.55) * 0.92 });
+    text(g, '마작관', W * (tall ? 0.5 : 0.7), H * (tall ? 0.7 : 0.42), `900 ${s * 0.18}px ${HEI}`, '#ffd76a', { spacing: s * 0.04 });
+    text(g, '마작 · 밤새 영업', W * (tall ? 0.5 : 0.7), H * (tall ? 0.82 : 0.7), `600 ${s * 0.06}px ${OX}`, '#e8ffe9', { spacing: s * 0.03, maxW: (tall ? W : W * 0.55) * 0.92 });
   },
 ];
 
@@ -237,11 +237,11 @@ export function drawAdAtlas(small) {
 }
 
 export async function loadAdFonts() {
-  const sample = '義體雷霆能量天頂銀行感知一切麵牛肉新星飛行直航月台點心明日製造藥房遊戲機中心霓虹夜市雲上之家綠茶冷泡演唱會麻雀館通宵中發白無痛升級分期付款';
+  const sample = '네온 제니스 한글 광고 의체번개의 에너지제니스은행모든 것을 느끼다면牛肉新星飛行直航月台딤섬내일의 제조약국게임 센터霓虹야시장구름위의집녹차冷泡演唱會마작관通宵中發白無痛升級分期付款';
   try {
     await Promise.all([
       document.fonts.load(`900 64px ${HEI}`, sample), document.fonts.load(`700 64px ${SUNG}`, sample),
-      document.fonts.load(`800 64px ${OX}`, 'VOLT'), document.fonts.load(`200 64px ${OX}`, 'SYNAPSE'), document.fonts.load(`800 64px ${MONO}`, 'ARCADE'),
+      document.fonts.load(`800 64px ${OX}`, '볼트'), document.fonts.load(`200 64px ${OX}`, '시냅스'), document.fonts.load(`800 64px ${MONO}`, '아케이드'),
     ]);
   } catch { /* fallbacks draw instead */ }
 }
@@ -366,4 +366,4 @@ export function createAviationLights(city) {
   mesh.frustumCulled = false;
   mesh.name = 'aviation';
   return { group: mesh, count: n };
-}
+      }
